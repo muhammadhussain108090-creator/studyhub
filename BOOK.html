@@ -20,7 +20,7 @@ body{
 }
 
 button{
-    border:none;
+    border:0;
     cursor:pointer;
 }
 
@@ -33,8 +33,8 @@ button{
 #authScreen{
     min-height:100vh;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     padding:20px;
     background:
         radial-gradient(circle at top left,#dbeafe,transparent 35%),
@@ -345,6 +345,111 @@ button{
     color:#94a3b8;
 }
 
+/* ================= FRIENDS ================= */
+
+.friend-search{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.friend-search input{
+    flex:1;
+    padding:14px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    outline:none;
+}
+
+.search-btn{
+    background:#6366f1;
+    color:white;
+    padding:0 22px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.search-result{
+    margin-top:10px;
+}
+
+.person-card{
+    background:white;
+    padding:18px;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.person-info{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#6366f1;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.person-name{
+    font-weight:bold;
+}
+
+.person-email{
+    color:#64748b;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.small-btn{
+    padding:9px 14px;
+    border-radius:9px;
+    font-weight:bold;
+    background:#6366f1;
+    color:white;
+}
+
+.accept-btn{
+    background:#16a34a;
+}
+
+.reject-btn{
+    background:#ef4444;
+    margin-left:5px;
+}
+
+.remove-btn{
+    background:#ef4444;
+}
+
+.friend-section{
+    margin-top:25px;
+}
+
+.friend-section h2{
+    margin-bottom:12px;
+}
+
+.empty{
+    color:#64748b;
+    padding:15px;
+    background:white;
+    border-radius:12px;
+}
+
 /* ================= TIMER ================= */
 
 .timer{
@@ -447,6 +552,19 @@ button{
         grid-template-columns:1fr;
     }
 
+    .friend-search{
+        flex-direction:column;
+    }
+
+    .search-btn{
+        padding:13px;
+    }
+
+    .person-card{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
     .timer-display{
         font-size:60px;
     }
@@ -456,7 +574,9 @@ button{
 
 <body>
 
-<!-- ================= AUTH ================= -->
+<!-- =====================================================
+     AUTH SCREEN
+===================================================== -->
 
 <div id="authScreen">
 
@@ -507,6 +627,7 @@ Login
 
 <div class="switch-text">
 Don't have an account?
+
 <button type="button" onclick="showSignup()">
 Create one
 </button>
@@ -524,16 +645,20 @@ Create one
 <form id="signupForm">
 
 <div class="input-group">
+
 <label>Your name</label>
+
 <input
 type="text"
 id="signupName"
 placeholder="Your name"
 required>
+
 </div>
 
 
 <div class="input-group">
+
 <label>Class</label>
 
 <select id="signupClass" required>
@@ -568,39 +693,52 @@ Class 12
 
 
 <div class="input-group">
+
 <label>Email</label>
+
 <input
 type="email"
 id="signupEmail"
 placeholder="you@example.com"
 required>
+
 </div>
 
 
 <div class="input-group">
+
 <label>Password</label>
+
 <input
 type="password"
 id="signupPassword"
 placeholder="At least 6 characters"
 minlength="6"
 required>
+
 </div>
 
 
 <div class="input-group">
+
 <label>Confirm password</label>
+
 <input
 type="password"
 id="signupConfirm"
 placeholder="Repeat password"
 minlength="6"
 required>
+
 </div>
 
 
-<button class="primary-btn" type="submit">
+<button
+class="primary-btn"
+type="submit">
+
 Create Account
+
 </button>
 
 </form>
@@ -608,19 +746,28 @@ Create Account
 <div id="signupMessage"></div>
 
 <div class="switch-text">
+
 Already have an account?
-<button type="button" onclick="showLogin()">
+
+<button
+type="button"
+onclick="showLogin()">
+
 Login
+
 </button>
-</div>
 
 </div>
 
 </div>
+
+</div>
 </div>
 
 
-<!-- ================= APP ================= -->
+<!-- =====================================================
+     MAIN APP
+===================================================== -->
 
 <div id="app" class="hidden">
 
@@ -630,32 +777,44 @@ Login
 Study<span>Hub</span>
 </div>
 
-<button class="nav-btn active"
+<button
+class="nav-btn active"
 onclick="showPage('dashboard',this)">
 🏠 Dashboard
 </button>
 
-<button class="nav-btn"
+<button
+class="nav-btn"
 onclick="showPage('subjects',this)">
 📚 Subjects
 </button>
 
-<button class="nav-btn"
+<button
+class="nav-btn"
 onclick="showPage('tasks',this)">
 ✅ Tasks
 </button>
 
-<button class="nav-btn"
+<button
+class="nav-btn"
+onclick="showPage('friends',this)">
+👥 Friends
+</button>
+
+<button
+class="nav-btn"
 onclick="showPage('focus',this)">
 ⏱️ Focus
 </button>
 
-<button class="nav-btn"
+<button
+class="nav-btn"
 onclick="showPage('profile',this)">
 👤 Profile
 </button>
 
-<button class="logout-btn"
+<button
+class="logout-btn"
 onclick="logout()">
 Logout
 </button>
@@ -668,43 +827,88 @@ Logout
 <div class="topbar">
 
 <div>
-<h1 id="pageTitle">Dashboard</h1>
+<h1 id="pageTitle">
+Dashboard
+</h1>
 </div>
 
-<div class="user-badge" id="userBadge">
+<div
+class="user-badge"
+id="userBadge">
 Student
 </div>
 
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
 
-<section id="dashboard" class="page active">
+<section
+id="dashboard"
+class="page active">
 
 <div class="grid">
 
 <div class="card">
-<div class="stat-label">Tasks</div>
-<div class="stat-number" id="taskCount">0</div>
+
+<div class="stat-label">
+Tasks
 </div>
 
-<div class="card">
-<div class="stat-label">Completed</div>
-<div class="stat-number" id="completedCount">0</div>
+<div
+class="stat-number"
+id="taskCount">
+0
 </div>
 
-<div class="card">
-<div class="stat-label">Subjects</div>
-<div class="stat-number" id="subjectCount">0</div>
 </div>
 
+
 <div class="card">
-<div class="stat-label">Class</div>
-<div class="stat-number" id="classNumber"
+
+<div class="stat-label">
+Completed
+</div>
+
+<div
+class="stat-number"
+id="completedCount">
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-label">
+Subjects
+</div>
+
+<div
+class="stat-number"
+id="subjectCount">
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-label">
+Class
+</div>
+
+<div
+class="stat-number"
+id="classNumber"
 style="font-size:20px">
 -
 </div>
+
 </div>
 
 </div>
@@ -712,9 +916,12 @@ style="font-size:20px">
 
 <div class="section">
 
-<h2>Your Subjects 📚</h2>
+<h2>
+Your Subjects 📚
+</h2>
 
-<div id="dashboardSubjects"
+<div
+id="dashboardSubjects"
 class="subject-grid">
 </div>
 
@@ -723,9 +930,13 @@ class="subject-grid">
 </section>
 
 
-<!-- SUBJECTS -->
+<!-- =====================================================
+     SUBJECTS
+===================================================== -->
 
-<section id="subjects" class="page">
+<section
+id="subjects"
+class="page">
 
 <div class="section">
 
@@ -733,7 +944,8 @@ class="subject-grid">
 Your Subjects
 </h2>
 
-<div id="allSubjects"
+<div
+id="allSubjects"
 class="subject-grid">
 </div>
 
@@ -742,15 +954,22 @@ class="subject-grid">
 </section>
 
 
-<!-- TASKS -->
+<!-- =====================================================
+     TASKS
+===================================================== -->
 
-<section id="tasks" class="page">
+<section
+id="tasks"
+class="page">
 
 <div class="card">
 
-<h2>Add a task</h2>
+<h2>
+Add a task
+</h2>
 
-<form id="taskForm"
+<form
+id="taskForm"
 class="task-form">
 
 <input
@@ -762,18 +981,24 @@ required>
 <button
 class="primary-btn"
 style="width:auto">
+
 Add
+
 </button>
 
 </form>
 
 </div>
 
+
 <div class="section">
 
-<h2>Your Tasks</h2>
+<h2>
+Your Tasks
+</h2>
 
-<div id="taskList"
+<div
+id="taskList"
 class="task-list">
 </div>
 
@@ -782,17 +1007,90 @@ class="task-list">
 </section>
 
 
-<!-- FOCUS -->
+<!-- =====================================================
+     FRIENDS
+===================================================== -->
 
-<section id="focus" class="page">
+<section
+id="friends"
+class="page">
+
+<div class="card">
+
+<h2>
+Find Students 🔎
+</h2>
+
+<p style="color:#64748b;margin:8px 0 18px">
+Search by student's name or email.
+</p>
+
+<div class="friend-search">
+
+<input
+type="text"
+id="friendSearchInput"
+placeholder="Search name or email...">
+
+<button
+class="search-btn"
+onclick="searchStudents()">
+
+Search
+
+</button>
+
+</div>
+
+<div id="searchResults"></div>
+
+</div>
+
+
+<div class="friend-section">
+
+<h2>
+📩 Friend Requests
+</h2>
+
+<div id="requestsList"></div>
+
+</div>
+
+
+<div class="friend-section">
+
+<h2>
+👥 My Friends
+</h2>
+
+<div id="friendsList"></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FOCUS
+===================================================== -->
+
+<section
+id="focus"
+class="page">
 
 <div class="card timer">
 
-<h2>Focus Timer</h2>
+<h2>
+Focus Timer
+</h2>
 
-<p>Stay focused. You've got this. 💪</p>
+<p>
+Stay focused. You've got this. 💪
+</p>
 
-<div class="timer-display"
+<div
+class="timer-display"
 id="timerDisplay">
 25:00
 </div>
@@ -814,45 +1112,94 @@ Reset
 </section>
 
 
-<!-- PROFILE -->
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
-<section id="profile" class="page">
+<section
+id="profile"
+class="page">
 
 <div class="card profile-card">
 
-<h2>Your Profile 👤</h2>
+<h2>
+Your Profile 👤
+</h2>
+
 
 <div class="profile-row">
-<div class="profile-label">Name</div>
-<div class="profile-value"
+
+<div class="profile-label">
+Name
+</div>
+
+<div
+class="profile-value"
 id="profileName">
 -
 </div>
+
 </div>
 
+
 <div class="profile-row">
-<div class="profile-label">Email</div>
-<div class="profile-value"
+
+<div class="profile-label">
+Email
+</div>
+
+<div
+class="profile-value"
 id="profileEmail">
 -
 </div>
+
 </div>
 
+
 <div class="profile-row">
-<div class="profile-label">Class</div>
-<div class="profile-value"
+
+<div class="profile-label">
+Class
+</div>
+
+<div
+class="profile-value"
 id="profileClass">
 -
 </div>
+
 </div>
 
+
 <div class="profile-row">
-<div class="profile-label">User ID</div>
-<div class="profile-value"
+
+<div class="profile-label">
+Friends
+</div>
+
+<div
+class="profile-value"
+id="profileFriendCount">
+0
+</div>
+
+</div>
+
+
+<div class="profile-row">
+
+<div class="profile-label">
+User ID
+</div>
+
+<div
+class="profile-value"
 id="profileUid"
 style="font-size:12px;word-break:break-all">
 -
 </div>
+
 </div>
 
 </div>
@@ -864,12 +1211,18 @@ style="font-size:12px;word-break:break-all">
 </div>
 
 
-<!-- ================= FIREBASE ================= -->
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+
 
 import {
 getAuth,
@@ -879,17 +1232,32 @@ onAuthStateChanged,
 signOut,
 updateProfile
 }
-from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
 
 import {
 getFirestore,
 doc,
-setDoc
+setDoc,
+getDoc,
+collection,
+query,
+where,
+getDocs,
+addDoc,
+updateDoc,
+deleteDoc,
+onSnapshot,
+serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
 
-/* ================= CONFIG ================= */
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
 
 const firebaseConfig = {
 
@@ -920,287 +1288,93 @@ measurementId:
 };
 
 
-/* ================= INITIALIZE ================= */
+const app =
+initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+const auth =
+getAuth(app);
 
-const auth = getAuth(app);
+const db =
+getFirestore(app);
 
-const db = getFirestore(app);
 
-
-/* ================= SUBJECT DATABASE ================= */
+/* =====================================================
+   SUBJECTS
+===================================================== */
 
 const subjectsByClass = {
 
 "Below Class 9":[
 
-{
-name:"Science",
-icon:"🔬",
-description:"General Science"
-},
-
-{
-name:"English",
-icon:"🇬🇧",
-description:"English Language"
-},
-
-{
-name:"Mathematics",
-icon:"📐",
-description:"Mathematics"
-},
-
-{
-name:"Urdu",
-icon:"📖",
-description:"Urdu Language"
-},
-
-{
-name:"Pakistan Studies",
-icon:"🇵🇰",
-description:"Pakistan Studies"
-},
-
-{
-name:"Computer",
-icon:"💻",
-description:"Computer Science"
-},
-
-{
-name:"Sindhi",
-icon:"📝",
-description:"Sindhi Language"
-},
-
-{
-name:"Islamiat",
-icon:"☪️",
-description:"Islamic Studies"
-}
+["Science","🔬","General Science"],
+["English","🇬🇧","English Language"],
+["Mathematics","📐","Mathematics"],
+["Urdu","📖","Urdu Language"],
+["Pakistan Studies","🇵🇰","Pakistan Studies"],
+["Computer","💻","Computer Science"],
+["Sindhi","📝","Sindhi Language"],
+["Islamiat","☪️","Islamic Studies"]
 
 ],
-
 
 "Class 9":[
 
-{
-name:"English",
-icon:"🇬🇧",
-description:"English"
-},
-
-{
-name:"Urdu",
-icon:"📖",
-description:"Urdu"
-},
-
-{
-name:"Mathematics",
-icon:"📐",
-description:"Mathematics"
-},
-
-{
-name:"Physics",
-icon:"⚡",
-description:"Physics"
-},
-
-{
-name:"Chemistry",
-icon:"🧪",
-description:"Chemistry"
-},
-
-{
-name:"Biology",
-icon:"🧬",
-description:"Biology"
-},
-
-{
-name:"Islamiat",
-icon:"☪️",
-description:"Islamiat"
-},
-
-{
-name:"Pakistan Studies",
-icon:"🇵🇰",
-description:"Pakistan Studies"
-}
+["English","🇬🇧","English"],
+["Urdu","📖","Urdu"],
+["Mathematics","📐","Mathematics"],
+["Physics","⚡","Physics"],
+["Chemistry","🧪","Chemistry"],
+["Biology","🧬","Biology"],
+["Islamiat","☪️","Islamiat"],
+["Pakistan Studies","🇵🇰","Pakistan Studies"]
 
 ],
-
 
 "Class 10":[
 
-{
-name:"English",
-icon:"🇬🇧",
-description:"English"
-},
-
-{
-name:"Urdu",
-icon:"📖",
-description:"Urdu"
-},
-
-{
-name:"Mathematics",
-icon:"📐",
-description:"Mathematics"
-},
-
-{
-name:"Physics",
-icon:"⚡",
-description:"Physics"
-},
-
-{
-name:"Chemistry",
-icon:"🧪",
-description:"Chemistry"
-},
-
-{
-name:"Biology",
-icon:"🧬",
-description:"Biology"
-},
-
-{
-name:"Islamiat",
-icon:"☪️",
-description:"Islamiat"
-},
-
-{
-name:"Pakistan Studies",
-icon:"🇵🇰",
-description:"Pakistan Studies"
-}
+["English","🇬🇧","English"],
+["Urdu","📖","Urdu"],
+["Mathematics","📐","Mathematics"],
+["Physics","⚡","Physics"],
+["Chemistry","🧪","Chemistry"],
+["Biology","🧬","Biology"],
+["Islamiat","☪️","Islamiat"],
+["Pakistan Studies","🇵🇰","Pakistan Studies"]
 
 ],
-
 
 "Class 11":[
 
-{
-name:"English",
-icon:"🇬🇧",
-description:"English"
-},
-
-{
-name:"Urdu",
-icon:"📖",
-description:"Urdu"
-},
-
-{
-name:"Mathematics",
-icon:"📐",
-description:"Mathematics"
-},
-
-{
-name:"Physics",
-icon:"⚡",
-description:"Physics"
-},
-
-{
-name:"Chemistry",
-icon:"🧪",
-description:"Chemistry"
-},
-
-{
-name:"Biology",
-icon:"🧬",
-description:"Biology"
-},
-
-{
-name:"Islamiat",
-icon:"☪️",
-description:"Islamiat"
-},
-
-{
-name:"Pakistan Studies",
-icon:"🇵🇰",
-description:"Pakistan Studies"
-}
+["English","🇬🇧","English"],
+["Urdu","📖","Urdu"],
+["Mathematics","📐","Mathematics"],
+["Physics","⚡","Physics"],
+["Chemistry","🧪","Chemistry"],
+["Biology","🧬","Biology"],
+["Islamiat","☪️","Islamiat"],
+["Pakistan Studies","🇵🇰","Pakistan Studies"]
 
 ],
 
-
 "Class 12":[
 
-{
-name:"English",
-icon:"🇬🇧",
-description:"English"
-},
-
-{
-name:"Urdu",
-icon:"📖",
-description:"Urdu"
-},
-
-{
-name:"Mathematics",
-icon:"📐",
-description:"Mathematics"
-},
-
-{
-name:"Physics",
-icon:"⚡",
-description:"Physics"
-},
-
-{
-name:"Chemistry",
-icon:"🧪",
-description:"Chemistry"
-},
-
-{
-name:"Biology",
-icon:"🧬",
-description:"Biology"
-},
-
-{
-name:"Islamiat",
-icon:"☪️",
-description:"Islamiat"
-},
-
-{
-name:"Pakistan Studies",
-icon:"🇵🇰",
-description:"Pakistan Studies"
-}
+["English","🇬🇧","English"],
+["Urdu","📖","Urdu"],
+["Mathematics","📐","Mathematics"],
+["Physics","⚡","Physics"],
+["Chemistry","🧪","Chemistry"],
+["Biology","🧬","Biology"],
+["Islamiat","☪️","Islamiat"],
+["Pakistan Studies","🇵🇰","Pakistan Studies"]
 
 ]
 
 };
 
 
-/* ================= AUTH ELEMENTS ================= */
+/* =====================================================
+   AUTH UI
+===================================================== */
 
 const authScreen =
 document.getElementById("authScreen");
@@ -1227,9 +1401,7 @@ const signupMessage =
 document.getElementById("signupMessage");
 
 
-/* ================= LOGIN/SIGNUP SWITCH ================= */
-
-window.showLogin = function(){
+window.showLogin=function(){
 
 loginBox.classList.remove("hidden");
 
@@ -1242,7 +1414,7 @@ signupMessage.innerHTML="";
 };
 
 
-window.showSignup = function(){
+window.showSignup=function(){
 
 loginBox.classList.add("hidden");
 
@@ -1255,7 +1427,9 @@ signupMessage.innerHTML="";
 };
 
 
-/* ================= ERROR HANDLER ================= */
+/* =====================================================
+   ERROR HANDLER
+===================================================== */
 
 function firebaseError(error){
 
@@ -1264,10 +1438,10 @@ console.error(error);
 const code=error.code || "";
 
 if(code.includes("invalid-email"))
-return "❌ Please enter a valid email address.";
+return "❌ Invalid email address.";
 
 if(code.includes("email-already-in-use"))
-return "❌ This email already has an account. Try logging in.";
+return "❌ This email already has an account.";
 
 if(code.includes("weak-password"))
 return "❌ Password must be at least 6 characters.";
@@ -1282,25 +1456,29 @@ if(code.includes("invalid-credential"))
 return "❌ Email or password is incorrect.";
 
 if(code.includes("operation-not-allowed"))
-return "❌ Email/Password authentication is not enabled in Firebase.";
+return "❌ Email/Password login is not enabled in Firebase.";
 
 if(code.includes("network-request-failed"))
-return "❌ Network error. Check your internet connection.";
+return "❌ Network error. Check your internet.";
 
 if(code.includes("api-key-not-valid"))
 return "❌ Firebase API key is not valid.";
 
 if(code.includes("permission-denied"))
-return "❌ Firestore permission denied. Check Firestore Rules.";
+return "❌ Firestore permission denied. Check your Firestore Rules.";
 
 return "❌ "+(error.message || "Something went wrong.");
 
 }
 
 
-/* ================= SIGN UP ================= */
+/* =====================================================
+   SIGN UP
+===================================================== */
 
-signupForm.addEventListener("submit",async function(e){
+signupForm.addEventListener(
+"submit",
+async function(e){
 
 e.preventDefault();
 
@@ -1308,13 +1486,14 @@ const name =
 document.getElementById("signupName")
 .value.trim();
 
-const selectedClass =
+const studentClass =
 document.getElementById("signupClass")
 .value;
 
 const email =
 document.getElementById("signupEmail")
-.value.trim();
+.value.trim()
+.toLowerCase();
 
 const password =
 document.getElementById("signupPassword")
@@ -1325,26 +1504,11 @@ document.getElementById("signupConfirm")
 .value;
 
 
-signupMessage.innerHTML="";
-
-
-if(password !== confirm){
+if(password!==confirm){
 
 signupMessage.innerHTML=`
 <div class="error">
 ❌ Passwords do not match.
-</div>`;
-
-return;
-
-}
-
-
-if(!selectedClass){
-
-signupMessage.innerHTML=`
-<div class="error">
-❌ Please select your class.
 </div>`;
 
 return;
@@ -1368,17 +1532,17 @@ password
 );
 
 
-const user=credential.user;
+const user =
+credential.user;
 
 
-/* Firebase profile */
-
-await updateProfile(user,{
+await updateProfile(
+user,
+{
 displayName:name
-});
+}
+);
 
-
-/* Save student information */
 
 await setDoc(
 doc(db,"users",user.uid),
@@ -1388,13 +1552,13 @@ uid:user.uid,
 
 name:name,
 
+nameLower:name.toLowerCase(),
+
 email:email,
 
-class:selectedClass,
+class:studentClass,
 
-subjects:subjectsByClass[selectedClass],
-
-createdAt:new Date().toISOString()
+createdAt:serverTimestamp()
 
 }
 );
@@ -1402,13 +1566,13 @@ createdAt:new Date().toISOString()
 
 signupMessage.innerHTML=`
 <div class="success">
-✅ Account created successfully!
+✅ Account created! Opening StudyHub...
 </div>`;
 
 
 /*
-Firebase automatically logs
-the user in after registration.
+Firebase automatically signs
+the user in.
 */
 
 }
@@ -1425,36 +1589,39 @@ ${firebaseError(error)}
 });
 
 
-/* ================= LOGIN ================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 
-loginForm.addEventListener("submit",async function(e){
+loginForm.addEventListener(
+"submit",
+async function(e){
 
 e.preventDefault();
 
 const email =
 document.getElementById("loginEmail")
-.value.trim();
+.value.trim()
+.toLowerCase();
 
 const password =
 document.getElementById("loginPassword")
 .value;
 
-loginMessage.innerHTML="";
-
-try{
 
 loginMessage.innerHTML=`
 <div class="success">
-Logging you in...
+Logging in...
 </div>`;
 
+
+try{
 
 await signInWithEmailAndPassword(
 auth,
 email,
 password
 );
-
 
 }
 
@@ -1470,11 +1637,33 @@ ${firebaseError(error)}
 });
 
 
-/* ================= AUTH STATE ================= */
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
-onAuthStateChanged(auth,async function(user){
+let unsubscribeRequests=null;
+let unsubscribeFriends=null;
 
-if(user){
+onAuthStateChanged(
+auth,
+async function(user){
+
+if(!user){
+
+authScreen.classList.remove("hidden");
+
+appScreen.classList.add("hidden");
+
+if(unsubscribeRequests)
+unsubscribeRequests();
+
+if(unsubscribeFriends)
+unsubscribeFriends();
+
+return;
+
+}
+
 
 authScreen.classList.add("hidden");
 
@@ -1489,7 +1678,6 @@ user.email.split("@")[0];
 document.getElementById("userBadge")
 .textContent="👋 "+name;
 
-
 document.getElementById("profileName")
 .textContent=name;
 
@@ -1500,81 +1688,112 @@ document.getElementById("profileUid")
 .textContent=user.uid;
 
 
-/*
-We need the student's class.
-*/
-
 try{
 
-const userDoc =
-await import(
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js"
+const userSnap =
+await getDoc(
+doc(db,"users",user.uid)
 );
 
 
-const snapshot =
-await userDoc.getDoc(
-userDoc.doc(db,"users",user.uid)
-);
+if(userSnap.exists()){
 
+const data=userSnap.data();
 
-if(snapshot.exists()){
+document.getElementById("classNumber")
+.textContent=data.class || "-";
 
-const data=snapshot.data();
+document.getElementById("profileClass")
+.textContent=data.class || "-";
 
-setStudentData(
-data.class,
-data.name || name
-);
+renderSubjects(data.class);
 
 }
 
 }
 catch(error){
 
-console.error(
-"Could not load profile:",
-error
-);
+console.error(error);
 
 }
+
 
 loadTasks();
 
-}
+listenToRequests();
 
-else{
-
-authScreen.classList.remove("hidden");
-
-appScreen.classList.add("hidden");
+listenToFriends();
 
 }
-
-});
-
-
-/* ================= STUDENT DATA ================= */
-
-function setStudentData(studentClass,name){
-
-document.getElementById("classNumber")
-.textContent=studentClass;
-
-document.getElementById("profileClass")
-.textContent=studentClass;
-
-document.getElementById("subjectsHeading")
-.textContent=
-studentClass+" Subjects 📚";
+);
 
 
-renderSubjects(studentClass);
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-}
+window.logout=async function(){
+
+await signOut(auth);
+
+};
 
 
-/* ================= SUBJECT RENDER ================= */
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+window.showPage=function(page,button){
+
+document
+.querySelectorAll(".page")
+.forEach(p=>
+p.classList.remove("active")
+);
+
+
+document
+.querySelectorAll(".nav-btn")
+.forEach(b=>
+b.classList.remove("active")
+);
+
+
+document
+.getElementById(page)
+.classList.add("active");
+
+
+if(button)
+button.classList.add("active");
+
+
+const titles={
+
+dashboard:"Dashboard",
+
+subjects:"Subjects",
+
+tasks:"Tasks",
+
+friends:"Friends",
+
+focus:"Focus",
+
+profile:"Profile"
+
+};
+
+
+document.getElementById("pageTitle")
+.textContent=titles[page];
+
+};
+
+
+/* =====================================================
+   SUBJECTS
+===================================================== */
 
 function renderSubjects(studentClass){
 
@@ -1582,24 +1801,31 @@ const subjects =
 subjectsByClass[studentClass] || [];
 
 const dashboard =
-document.getElementById("dashboardSubjects");
+document.getElementById(
+"dashboardSubjects"
+);
 
 const all =
-document.getElementById("allSubjects");
+document.getElementById(
+"allSubjects"
+);
 
 
 dashboard.innerHTML="";
+
 all.innerHTML="";
 
 
-document.getElementById("subjectCount")
-.textContent=subjects.length;
+document.getElementById(
+"subjectCount"
+).textContent=subjects.length;
 
 
-subjects.forEach((subject,index)=>{
+subjects.forEach(
+(subject,index)=>{
 
 const progress =
-60 + (index * 5) % 35;
+60 + ((index*7)%35);
 
 
 const html=`
@@ -1607,12 +1833,16 @@ const html=`
 <div class="subject">
 
 <div class="subject-icon">
-${subject.icon}
+${subject[1]}
 </div>
 
-<h3>${subject.name}</h3>
+<h3>
+${subject[0]}
+</h3>
 
-<p>${subject.description}</p>
+<p>
+${subject[2]}
+</p>
 
 <div class="progress">
 
@@ -1640,89 +1870,34 @@ html
 
 });
 
-}
 
-
-/* ================= LOGOUT ================= */
-
-window.logout=async function(){
-
-try{
-
-await signOut(auth);
-
-showLogin();
-
-}
-catch(error){
-
-alert(firebaseError(error));
+document.getElementById(
+"subjectsHeading"
+).textContent=
+studentClass+" Subjects 📚";
 
 }
 
-};
 
-
-/* ================= NAVIGATION ================= */
-
-window.showPage=function(page,button){
-
-document
-.querySelectorAll(".page")
-.forEach(p=>
-p.classList.remove("active")
-);
-
-document
-.querySelectorAll(".nav-btn")
-.forEach(b=>
-b.classList.remove("active")
-);
-
-
-document
-.getElementById(page)
-.classList.add("active");
-
-
-if(button)
-button.classList.add("active");
-
-
-const titles={
-
-dashboard:"Dashboard",
-
-subjects:"Subjects",
-
-tasks:"Tasks",
-
-focus:"Focus",
-
-profile:"Profile"
-
-};
-
-
-document.getElementById("pageTitle")
-.textContent=titles[page];
-
-};
-
-
-/* ================= TASKS ================= */
+/* =====================================================
+   TASKS
+===================================================== */
 
 let tasks=[];
 
 
 document
 .getElementById("taskForm")
-.addEventListener("submit",function(e){
+.addEventListener(
+"submit",
+function(e){
 
 e.preventDefault();
 
 const input =
-document.getElementById("taskInput");
+document.getElementById(
+"taskInput"
+);
 
 const text =
 input.value.trim();
@@ -1747,7 +1922,8 @@ saveTasks();
 
 renderTasks();
 
-});
+}
+);
 
 
 function saveTasks(){
@@ -1772,12 +1948,12 @@ const user=auth.currentUser;
 
 if(!user)return;
 
-const saved =
+const saved=
 localStorage.getItem(
 "studyhub_tasks_"+user.uid
 );
 
-tasks =
+tasks=
 saved ? JSON.parse(saved) : [];
 
 renderTasks();
@@ -1787,8 +1963,10 @@ renderTasks();
 
 function renderTasks(){
 
-const list =
-document.getElementById("taskList");
+const list=
+document.getElementById(
+"taskList"
+);
 
 list.innerHTML="";
 
@@ -1796,11 +1974,9 @@ list.innerHTML="";
 if(tasks.length===0){
 
 list.innerHTML=`
-
-<div class="card">
+<div class="empty">
 No tasks yet. Add your first task! 🚀
 </div>
-
 `;
 
 updateTaskStats();
@@ -1812,7 +1988,8 @@ return;
 
 tasks.forEach(task=>{
 
-const div=document.createElement("div");
+const div=
+document.createElement("div");
 
 div.className=
 "task "+(task.done?"done":"");
@@ -1825,10 +2002,11 @@ type="checkbox"
 ${task.done?"checked":""}
 onchange="toggleTask(${task.id})">
 
-<span>${escapeHTML(task.text)}</span>
+<span>
+${escapeHTML(task.text)}
+</span>
 
 `;
-
 
 list.appendChild(div);
 
@@ -1858,11 +2036,13 @@ renderTasks();
 
 function updateTaskStats(){
 
-document.getElementById("taskCount")
-.textContent=tasks.length;
+document.getElementById(
+"taskCount"
+).textContent=tasks.length;
 
-document.getElementById("completedCount")
-.textContent=
+document.getElementById(
+"completedCount"
+).textContent=
 tasks.filter(t=>t.done).length;
 
 }
@@ -1880,7 +2060,737 @@ return str
 }
 
 
-/* ================= TIMER ================= */
+/* =====================================================
+   SEARCH STUDENTS
+===================================================== */
+
+window.searchStudents=async function(){
+
+const input=
+document.getElementById(
+"friendSearchInput"
+);
+
+const term=
+input.value.trim().toLowerCase();
+
+const results=
+document.getElementById(
+"searchResults"
+);
+
+
+if(!term){
+
+results.innerHTML=`
+<div class="empty">
+Type a name or email to search.
+</div>
+`;
+
+return;
+
+}
+
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+
+results.innerHTML=`
+<div class="empty">
+🔎 Searching...
+</div>
+`;
+
+
+try{
+
+/*
+We search both email and name.
+*/
+
+const emailQuery=query(
+collection(db,"users"),
+where("email","==",term)
+);
+
+const nameQuery=query(
+collection(db,"users"),
+where("nameLower","==",term)
+);
+
+
+const [emailSnap,nameSnap]=
+await Promise.all([
+getDocs(emailQuery),
+getDocs(nameQuery)
+]);
+
+
+const found=new Map();
+
+
+emailSnap.forEach(
+d=>found.set(d.id,d.data())
+);
+
+nameSnap.forEach(
+d=>found.set(d.id,d.data())
+);
+
+
+found.delete(user.uid);
+
+
+if(found.size===0){
+
+results.innerHTML=`
+<div class="empty">
+No student found. Try the exact name or email.
+</div>
+`;
+
+return;
+
+}
+
+
+results.innerHTML="";
+
+
+found.forEach(
+student=>{
+
+const div=
+document.createElement("div");
+
+div.className="person-card";
+
+
+const initial=
+(student.name || "S")
+.charAt(0)
+.toUpperCase();
+
+
+div.innerHTML=`
+
+<div class="person-info">
+
+<div class="avatar">
+${initial}
+</div>
+
+<div>
+
+<div class="person-name">
+${escapeHTML(student.name)}
+</div>
+
+<div class="person-email">
+${escapeHTML(student.email)}
+</div>
+
+<div class="person-email">
+${escapeHTML(student.class || "Student")}
+</div>
+
+</div>
+
+</div>
+
+<button
+class="small-btn"
+onclick="sendFriendRequest('${student.uid}')">
+
+➕ Add Friend
+
+</button>
+
+`;
+
+
+results.appendChild(div);
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+results.innerHTML=`
+<div class="error">
+${firebaseError(error)}
+</div>
+`;
+
+}
+
+};
+
+
+/* =====================================================
+   SEND FRIEND REQUEST
+===================================================== */
+
+window.sendFriendRequest=async function(toUid){
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+if(toUid===user.uid)return;
+
+
+const requestId=
+user.uid+"_"+toUid;
+
+
+try{
+
+const existing=
+await getDoc(
+doc(
+db,
+"friendRequests",
+requestId
+)
+);
+
+
+if(existing.exists()){
+
+alert("Friend request already exists.");
+
+return;
+
+}
+
+
+/*
+Check reverse request.
+*/
+
+const reverseId=
+toUid+"_"+user.uid;
+
+const reverse=
+await getDoc(
+doc(
+db,
+"friendRequests",
+reverseId
+)
+);
+
+
+if(reverse.exists()){
+
+alert(
+"This student has already sent you a request. Check Friend Requests."
+);
+
+return;
+
+}
+
+
+await setDoc(
+doc(
+db,
+"friendRequests",
+requestId
+),
+{
+
+fromUid:user.uid,
+
+toUid:toUid,
+
+status:"pending",
+
+createdAt:serverTimestamp()
+
+}
+);
+
+
+alert("✅ Friend request sent!");
+
+}
+
+catch(error){
+
+alert(firebaseError(error));
+
+}
+
+};
+
+
+/* =====================================================
+   LISTEN FOR REQUESTS
+===================================================== */
+
+function listenToRequests(){
+
+if(unsubscribeRequests)
+unsubscribeRequests();
+
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+
+const q=query(
+collection(db,"friendRequests"),
+where("toUid","==",user.uid),
+where("status","==","pending")
+);
+
+
+unsubscribeRequests=
+onSnapshot(
+q,
+async snapshot=>{
+
+const container=
+document.getElementById(
+"requestsList"
+);
+
+container.innerHTML="";
+
+
+if(snapshot.empty){
+
+container.innerHTML=`
+<div class="empty">
+No new friend requests.
+</div>
+`;
+
+return;
+
+}
+
+
+for(const requestDoc of snapshot.docs){
+
+const request=
+requestDoc.data();
+
+
+let person={};
+
+try{
+
+const personSnap=
+await getDoc(
+doc(
+db,
+"users",
+request.fromUid
+)
+);
+
+if(personSnap.exists())
+person=personSnap.data();
+
+}
+catch(e){
+console.error(e);
+}
+
+
+const div=
+document.createElement("div");
+
+div.className="person-card";
+
+
+const initial=
+(person.name || "S")
+.charAt(0)
+.toUpperCase();
+
+
+div.innerHTML=`
+
+<div class="person-info">
+
+<div class="avatar">
+${initial}
+</div>
+
+<div>
+
+<div class="person-name">
+${escapeHTML(person.name || "Student")}
+</div>
+
+<div class="person-email">
+${escapeHTML(person.email || "")}
+</div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<button
+class="small-btn accept-btn"
+onclick="acceptRequest('${requestDoc.id}','${request.fromUid}')">
+
+✅ Accept
+
+</button>
+
+<button
+class="small-btn reject-btn"
+onclick="rejectRequest('${requestDoc.id}')">
+
+❌ Reject
+
+</button>
+
+</div>
+
+`;
+
+
+container.appendChild(div);
+
+}
+
+},
+error=>{
+
+console.error(error);
+
+document.getElementById(
+"requestsList"
+).innerHTML=`
+<div class="error">
+${firebaseError(error)}
+</div>
+`;
+
+}
+);
+
+}
+
+
+/* =====================================================
+   ACCEPT REQUEST
+===================================================== */
+
+window.acceptRequest=
+async function(requestId,fromUid){
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+
+try{
+
+const friendshipId=
+createFriendshipId(
+user.uid,
+fromUid
+);
+
+
+await setDoc(
+doc(
+db,
+"friendships",
+friendshipId
+),
+{
+
+users:[
+user.uid,
+fromUid
+],
+
+createdAt:serverTimestamp()
+
+}
+);
+
+
+await updateDoc(
+doc(
+db,
+"friendRequests",
+requestId
+),
+{
+
+status:"accepted"
+
+}
+);
+
+
+alert("🎉 You are now friends!");
+
+}
+
+catch(error){
+
+alert(firebaseError(error));
+
+}
+
+};
+
+
+/* =====================================================
+   REJECT REQUEST
+===================================================== */
+
+window.rejectRequest=
+async function(requestId){
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"friendRequests",
+requestId
+)
+);
+
+}
+catch(error){
+
+alert(firebaseError(error));
+
+}
+
+};
+
+
+/* =====================================================
+   FRIENDSHIP ID
+===================================================== */
+
+function createFriendshipId(a,b){
+
+return [a,b].sort().join("_");
+
+}
+
+
+/* =====================================================
+   LISTEN FOR FRIENDS
+===================================================== */
+
+function listenToFriends(){
+
+if(unsubscribeFriends)
+unsubscribeFriends();
+
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+
+const q=query(
+collection(db,"friendships"),
+where("users","array-contains",user.uid)
+);
+
+
+unsubscribeFriends=
+onSnapshot(
+q,
+async snapshot=>{
+
+const container=
+document.getElementById(
+"friendsList"
+);
+
+container.innerHTML="";
+
+
+document.getElementById(
+"profileFriendCount"
+).textContent=
+snapshot.size;
+
+
+if(snapshot.empty){
+
+container.innerHTML=`
+<div class="empty">
+You don't have any friends yet.
+Search for a student above to add one! 👥
+</div>
+`;
+
+return;
+
+}
+
+
+for(const friendDoc of snapshot.docs){
+
+const friendship=
+friendDoc.data();
+
+
+const friendUid=
+friendship.users.find(
+id=>id!==user.uid
+);
+
+
+if(!friendUid)continue;
+
+
+let person={};
+
+try{
+
+const personSnap=
+await getDoc(
+doc(db,"users",friendUid)
+);
+
+if(personSnap.exists())
+person=personSnap.data();
+
+}
+catch(e){
+
+console.error(e);
+
+}
+
+
+const div=
+document.createElement("div");
+
+div.className="person-card";
+
+
+const initial=
+(person.name || "S")
+.charAt(0)
+.toUpperCase();
+
+
+div.innerHTML=`
+
+<div class="person-info">
+
+<div
+class="avatar">
+${initial}
+</div>
+
+<div>
+
+<div class="person-name">
+${escapeHTML(person.name || "Student")}
+</div>
+
+<div class="person-email">
+${escapeHTML(person.email || "")}
+</div>
+
+<div class="person-email">
+${escapeHTML(person.class || "")}
+</div>
+
+</div>
+
+</div>
+
+<button
+class="small-btn remove-btn"
+onclick="removeFriend('${friendshipDoc.id}')">
+
+Remove
+
+</button>
+
+`;
+
+
+container.appendChild(div);
+
+}
+
+},
+error=>{
+
+console.error(error);
+
+document.getElementById(
+"friendsList"
+).innerHTML=`
+<div class="error">
+${firebaseError(error)}
+</div>
+`;
+
+}
+);
+
+}
+
+
+/* =====================================================
+   REMOVE FRIEND
+===================================================== */
+
+window.removeFriend=
+async function(friendshipId){
+
+if(!confirm(
+"Are you sure you want to remove this friend?"
+))return;
+
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"friendships",
+friendshipId
+)
+);
+
+}
+catch(error){
+
+alert(firebaseError(error));
+
+}
+
+};
+
+
+/* =====================================================
+   TIMER
+===================================================== */
 
 let seconds=25*60;
 
@@ -1896,8 +2806,9 @@ const secs=
 seconds%60;
 
 
-document.getElementById("timerDisplay")
-.textContent=
+document.getElementById(
+"timerDisplay"
+).textContent=
 String(minutes).padStart(2,"0")
 +":"
 +String(secs).padStart(2,"0");
@@ -1908,6 +2819,7 @@ String(minutes).padStart(2,"0")
 window.startTimer=function(){
 
 if(timer)return;
+
 
 timer=setInterval(()=>{
 
