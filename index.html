@@ -394,6 +394,7 @@ button{
 .avatar{
     width:45px;
     height:45px;
+    min-width:45px;
     border-radius:50%;
     background:#6366f1;
     color:white;
@@ -435,6 +436,16 @@ button{
     background:#ef4444;
 }
 
+.chat-btn{
+    background:#6366f1;
+    margin-right:5px;
+}
+
+.pending-btn{
+    background:#94a3b8;
+    cursor:default;
+}
+
 .friend-section{
     margin-top:25px;
 }
@@ -448,6 +459,121 @@ button{
     padding:15px;
     background:white;
     border-radius:12px;
+}
+
+/* ================= CHAT ================= */
+
+.chat-container{
+    margin-top:25px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 5px 25px rgba(0,0,0,.06);
+    overflow:hidden;
+}
+
+.chat-header{
+    padding:18px 20px;
+    background:#111827;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.chat-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.chat-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#6366f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.chat-name{
+    font-weight:bold;
+}
+
+.chat-status{
+    font-size:12px;
+    color:#cbd5e1;
+    margin-top:3px;
+}
+
+.close-chat{
+    background:#374151;
+    color:white;
+    padding:9px 13px;
+    border-radius:9px;
+}
+
+.messages{
+    height:400px;
+    overflow-y:auto;
+    padding:20px;
+    background:#f8fafc;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.message{
+    max-width:75%;
+    padding:10px 14px;
+    border-radius:15px;
+    line-height:1.4;
+    word-break:break-word;
+}
+
+.message.mine{
+    align-self:flex-end;
+    background:#6366f1;
+    color:white;
+    border-bottom-right-radius:4px;
+}
+
+.message.theirs{
+    align-self:flex-start;
+    background:#e5e7eb;
+    color:#172033;
+    border-bottom-left-radius:4px;
+}
+
+.message-time{
+    display:block;
+    font-size:10px;
+    margin-top:4px;
+    opacity:.7;
+}
+
+.chat-form{
+    display:flex;
+    gap:10px;
+    padding:15px;
+    border-top:1px solid #e5e7eb;
+}
+
+.chat-form input{
+    flex:1;
+    padding:13px;
+    border:1px solid #dbe2ea;
+    border-radius:11px;
+    outline:none;
+}
+
+.send-btn{
+    background:#6366f1;
+    color:white;
+    padding:0 20px;
+    border-radius:11px;
+    font-weight:bold;
 }
 
 /* ================= TIMER ================= */
@@ -568,15 +694,21 @@ button{
     .timer-display{
         font-size:60px;
     }
+
+    .messages{
+        height:350px;
+    }
+
+    .message{
+        max-width:88%;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     AUTH SCREEN
-===================================================== -->
+<!-- ================= AUTH ================= -->
 
 <div id="authScreen">
 
@@ -590,9 +722,6 @@ Study<span>Hub</span>
 Your personal student dashboard
 </div>
 
-
-<!-- LOGIN -->
-
 <div id="loginBox">
 
 <h2>Welcome back 👋</h2>
@@ -601,20 +730,12 @@ Your personal student dashboard
 
 <div class="input-group">
 <label>Email</label>
-<input
-type="email"
-id="loginEmail"
-placeholder="you@example.com"
-required>
+<input type="email" id="loginEmail" placeholder="you@example.com" required>
 </div>
 
 <div class="input-group">
 <label>Password</label>
-<input
-type="password"
-id="loginPassword"
-placeholder="Your password"
-required>
+<input type="password" id="loginPassword" placeholder="Your password" required>
 </div>
 
 <button class="primary-btn" type="submit">
@@ -627,16 +748,10 @@ Login
 
 <div class="switch-text">
 Don't have an account?
-
-<button type="button" onclick="showSignup()">
-Create one
-</button>
+<button type="button" onclick="showSignup()">Create one</button>
 </div>
 
 </div>
-
-
-<!-- SIGNUP -->
 
 <div id="signupBox" class="hidden">
 
@@ -645,17 +760,9 @@ Create one
 <form id="signupForm">
 
 <div class="input-group">
-
 <label>Your name</label>
-
-<input
-type="text"
-id="signupName"
-placeholder="Your name"
-required>
-
+<input type="text" id="signupName" placeholder="Your name" required>
 </div>
-
 
 <div class="input-group">
 
@@ -663,82 +770,35 @@ required>
 
 <select id="signupClass" required>
 
-<option value="">
-Select your class
-</option>
+<option value="">Select your class</option>
 
-<option value="Below Class 9">
-Below Class 9
-</option>
-
-<option value="Class 9">
-Class 9
-</option>
-
-<option value="Class 10">
-Class 10
-</option>
-
-<option value="Class 11">
-Class 11
-</option>
-
-<option value="Class 12">
-Class 12
-</option>
+<option value="Below Class 9">Below Class 9</option>
+<option value="Class 9">Class 9</option>
+<option value="Class 10">Class 10</option>
+<option value="Class 11">Class 11</option>
+<option value="Class 12">Class 12</option>
 
 </select>
 
 </div>
 
-
 <div class="input-group">
-
 <label>Email</label>
-
-<input
-type="email"
-id="signupEmail"
-placeholder="you@example.com"
-required>
-
+<input type="email" id="signupEmail" placeholder="you@example.com" required>
 </div>
 
-
 <div class="input-group">
-
 <label>Password</label>
-
-<input
-type="password"
-id="signupPassword"
-placeholder="At least 6 characters"
-minlength="6"
-required>
-
+<input type="password" id="signupPassword" placeholder="At least 6 characters" minlength="6" required>
 </div>
-
 
 <div class="input-group">
-
 <label>Confirm password</label>
-
-<input
-type="password"
-id="signupConfirm"
-placeholder="Repeat password"
-minlength="6"
-required>
-
+<input type="password" id="signupConfirm" placeholder="Repeat password" minlength="6" required>
 </div>
 
-
-<button
-class="primary-btn"
-type="submit">
-
+<button class="primary-btn" type="submit">
 Create Account
-
 </button>
 
 </form>
@@ -746,17 +806,8 @@ Create Account
 <div id="signupMessage"></div>
 
 <div class="switch-text">
-
 Already have an account?
-
-<button
-type="button"
-onclick="showLogin()">
-
-Login
-
-</button>
-
+<button type="button" onclick="showLogin()">Login</button>
 </div>
 
 </div>
@@ -764,10 +815,7 @@ Login
 </div>
 </div>
 
-
-<!-- =====================================================
-     MAIN APP
-===================================================== -->
+<!-- ================= MAIN APP ================= -->
 
 <div id="app" class="hidden">
 
@@ -777,252 +825,142 @@ Login
 Study<span>Hub</span>
 </div>
 
-<button
-class="nav-btn active"
-onclick="showPage('dashboard',this)">
+<button class="nav-btn active" onclick="showPage('dashboard',this)">
 🏠 Dashboard
 </button>
 
-<button
-class="nav-btn"
-onclick="showPage('subjects',this)">
+<button class="nav-btn" onclick="showPage('subjects',this)">
 📚 Subjects
 </button>
 
-<button
-class="nav-btn"
-onclick="showPage('tasks',this)">
+<button class="nav-btn" onclick="showPage('tasks',this)">
 ✅ Tasks
 </button>
 
-<button
-class="nav-btn"
-onclick="showPage('friends',this)">
+<button class="nav-btn" onclick="showPage('friends',this)">
 👥 Friends
 </button>
 
-<button
-class="nav-btn"
-onclick="showPage('focus',this)">
+<button class="nav-btn" onclick="showPage('focus',this)">
 ⏱️ Focus
 </button>
 
-<button
-class="nav-btn"
-onclick="showPage('profile',this)">
+<button class="nav-btn" onclick="showPage('profile',this)">
 👤 Profile
 </button>
 
-<button
-class="logout-btn"
-onclick="logout()">
+<button class="logout-btn" onclick="logout()">
 Logout
 </button>
 
 </aside>
-
 
 <main class="main">
 
 <div class="topbar">
 
 <div>
-<h1 id="pageTitle">
-Dashboard
-</h1>
+<h1 id="pageTitle">Dashboard</h1>
 </div>
 
-<div
-class="user-badge"
-id="userBadge">
+<div class="user-badge" id="userBadge">
 Student
 </div>
 
 </div>
 
+<!-- ================= DASHBOARD ================= -->
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
-
-<section
-id="dashboard"
-class="page active">
+<section id="dashboard" class="page active">
 
 <div class="grid">
 
 <div class="card">
-
-<div class="stat-label">
-Tasks
+<div class="stat-label">Tasks</div>
+<div class="stat-number" id="taskCount">0</div>
 </div>
-
-<div
-class="stat-number"
-id="taskCount">
-0
-</div>
-
-</div>
-
 
 <div class="card">
-
-<div class="stat-label">
-Completed
+<div class="stat-label">Completed</div>
+<div class="stat-number" id="completedCount">0</div>
 </div>
-
-<div
-class="stat-number"
-id="completedCount">
-0
-</div>
-
-</div>
-
 
 <div class="card">
-
-<div class="stat-label">
-Subjects
+<div class="stat-label">Subjects</div>
+<div class="stat-number" id="subjectCount">0</div>
 </div>
-
-<div
-class="stat-number"
-id="subjectCount">
-0
-</div>
-
-</div>
-
 
 <div class="card">
-
-<div class="stat-label">
-Class
-</div>
-
-<div
-class="stat-number"
-id="classNumber"
-style="font-size:20px">
--
+<div class="stat-label">Class</div>
+<div class="stat-number" id="classNumber" style="font-size:20px">-</div>
 </div>
 
 </div>
-
-</div>
-
 
 <div class="section">
 
-<h2>
-Your Subjects 📚
-</h2>
+<h2>Your Subjects 📚</h2>
 
-<div
-id="dashboardSubjects"
-class="subject-grid">
-</div>
+<div id="dashboardSubjects" class="subject-grid"></div>
 
 </div>
 
 </section>
 
+<!-- ================= SUBJECTS ================= -->
 
-<!-- =====================================================
-     SUBJECTS
-===================================================== -->
-
-<section
-id="subjects"
-class="page">
+<section id="subjects" class="page">
 
 <div class="section">
 
-<h2 id="subjectsHeading">
-Your Subjects
-</h2>
+<h2 id="subjectsHeading">Your Subjects</h2>
 
-<div
-id="allSubjects"
-class="subject-grid">
-</div>
+<div id="allSubjects" class="subject-grid"></div>
 
 </div>
 
 </section>
 
+<!-- ================= TASKS ================= -->
 
-<!-- =====================================================
-     TASKS
-===================================================== -->
-
-<section
-id="tasks"
-class="page">
+<section id="tasks" class="page">
 
 <div class="card">
 
-<h2>
-Add a task
-</h2>
+<h2>Add a task</h2>
 
-<form
-id="taskForm"
-class="task-form">
+<form id="taskForm" class="task-form">
 
-<input
-type="text"
-id="taskInput"
-placeholder="e.g. Revise Mathematics"
-required>
+<input type="text" id="taskInput" placeholder="e.g. Revise Mathematics" required>
 
-<button
-class="primary-btn"
-style="width:auto">
-
+<button class="primary-btn" style="width:auto">
 Add
-
 </button>
 
 </form>
 
 </div>
 
-
 <div class="section">
 
-<h2>
-Your Tasks
-</h2>
+<h2>Your Tasks</h2>
 
-<div
-id="taskList"
-class="task-list">
-</div>
+<div id="taskList" class="task-list"></div>
 
 </div>
 
 </section>
 
+<!-- ================= FRIENDS ================= -->
 
-<!-- =====================================================
-     FRIENDS
-===================================================== -->
-
-<section
-id="friends"
-class="page">
+<section id="friends" class="page">
 
 <div class="card">
 
-<h2>
-Find Students 🔎
-</h2>
+<h2>Find Students 🔎</h2>
 
 <p style="color:#64748b;margin:8px 0 18px">
-Search by student's name or email.
+Search by student's exact name or email.
 </p>
 
 <div class="friend-search">
@@ -1030,14 +968,11 @@ Search by student's name or email.
 <input
 type="text"
 id="friendSearchInput"
-placeholder="Search name or email...">
+placeholder="Search name or email..."
+onkeydown="if(event.key==='Enter') searchStudents()">
 
-<button
-class="search-btn"
-onclick="searchStudents()">
-
+<button class="search-btn" onclick="searchStudents()">
 Search
-
 </button>
 
 </div>
@@ -1046,157 +981,149 @@ Search
 
 </div>
 
-
 <div class="friend-section">
 
-<h2>
-📩 Friend Requests
-</h2>
+<h2>📩 Friend Requests</h2>
 
 <div id="requestsList"></div>
 
 </div>
 
-
 <div class="friend-section">
 
-<h2>
-👥 My Friends
-</h2>
+<h2>👥 My Friends</h2>
 
 <div id="friendsList"></div>
 
 </div>
 
+<!-- CHAT -->
+
+<div id="chatContainer" class="chat-container hidden">
+
+<div class="chat-header">
+
+<div class="chat-user">
+
+<div id="chatAvatar" class="chat-avatar">
+S
+</div>
+
+<div>
+
+<div id="chatName" class="chat-name">
+Student
+</div>
+
+<div class="chat-status">
+💬 StudyHub Chat
+</div>
+
+</div>
+
+</div>
+
+<button class="close-chat" onclick="closeChat()">
+✕ Close
+</button>
+
+</div>
+
+<div id="messages" class="messages">
+
+<div class="empty">
+Loading messages...
+</div>
+
+</div>
+
+<form id="chatForm" class="chat-form">
+
+<input
+type="text"
+id="messageInput"
+placeholder="Type a message..."
+maxlength="1000"
+autocomplete="off"
+required>
+
+<button class="send-btn" type="submit">
+Send
+</button>
+
+</form>
+
+</div>
+
 </section>
 
+<!-- ================= FOCUS ================= -->
 
-<!-- =====================================================
-     FOCUS
-===================================================== -->
-
-<section
-id="focus"
-class="page">
+<section id="focus" class="page">
 
 <div class="card timer">
 
-<h2>
-Focus Timer
-</h2>
+<h2>Focus Timer</h2>
 
-<p>
-Stay focused. You've got this. 💪
-</p>
+<p>Stay focused. You've got this. 💪</p>
 
-<div
-class="timer-display"
-id="timerDisplay">
+<div class="timer-display" id="timerDisplay">
 25:00
 </div>
 
-<button onclick="startTimer()">
-Start
-</button>
-
-<button onclick="pauseTimer()">
-Pause
-</button>
-
-<button onclick="resetTimer()">
-Reset
-</button>
+<button onclick="startTimer()">Start</button>
+<button onclick="pauseTimer()">Pause</button>
+<button onclick="resetTimer()">Reset</button>
 
 </div>
 
 </section>
 
+<!-- ================= PROFILE ================= -->
 
-<!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section
-id="profile"
-class="page">
+<section id="profile" class="page">
 
 <div class="card profile-card">
 
-<h2>
-Your Profile 👤
-</h2>
-
+<h2>Your Profile 👤</h2>
 
 <div class="profile-row">
 
-<div class="profile-label">
-Name
-</div>
+<div class="profile-label">Name</div>
 
-<div
-class="profile-value"
-id="profileName">
--
-</div>
+<div class="profile-value" id="profileName">-</div>
 
 </div>
-
 
 <div class="profile-row">
 
-<div class="profile-label">
-Email
-</div>
+<div class="profile-label">Email</div>
 
-<div
-class="profile-value"
-id="profileEmail">
--
-</div>
+<div class="profile-value" id="profileEmail">-</div>
 
 </div>
-
 
 <div class="profile-row">
 
-<div class="profile-label">
-Class
-</div>
+<div class="profile-label">Class</div>
 
-<div
-class="profile-value"
-id="profileClass">
--
-</div>
+<div class="profile-value" id="profileClass">-</div>
 
 </div>
-
 
 <div class="profile-row">
 
-<div class="profile-label">
-Friends
-</div>
+<div class="profile-label">Friends</div>
 
-<div
-class="profile-value"
-id="profileFriendCount">
-0
-</div>
+<div class="profile-value" id="profileFriendCount">0</div>
 
 </div>
-
 
 <div class="profile-row">
 
-<div class="profile-label">
-User ID
-</div>
+<div class="profile-label">User ID</div>
 
-<div
-class="profile-value"
-id="profileUid"
-style="font-size:12px;word-break:break-all">
+<div class="profile-value" id="profileUid" style="font-size:12px;word-break:break-all">
 -
 </div>
 
@@ -1210,19 +1137,12 @@ style="font-size:12px;word-break:break-all">
 
 </div>
 
-
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
-import {
-initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 
 import {
 getAuth,
@@ -1232,9 +1152,7 @@ onAuthStateChanged,
 signOut,
 updateProfile
 }
-from
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-
+from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
 import {
 getFirestore,
@@ -1245,14 +1163,14 @@ collection,
 query,
 where,
 getDocs,
-addDoc,
 updateDoc,
 deleteDoc,
 onSnapshot,
-serverTimestamp
+serverTimestamp,
+orderBy,
+limit
 }
-from
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
 
 /* =====================================================
@@ -1287,25 +1205,20 @@ measurementId:
 
 };
 
+const app=initializeApp(firebaseConfig);
 
-const app =
-initializeApp(firebaseConfig);
+const auth=getAuth(app);
 
-const auth =
-getAuth(app);
-
-const db =
-getFirestore(app);
+const db=getFirestore(app);
 
 
 /* =====================================================
    SUBJECTS
 ===================================================== */
 
-const subjectsByClass = {
+const subjectsByClass={
 
 "Below Class 9":[
-
 ["Science","🔬","General Science"],
 ["English","🇬🇧","English Language"],
 ["Mathematics","📐","Mathematics"],
@@ -1314,11 +1227,9 @@ const subjectsByClass = {
 ["Computer","💻","Computer Science"],
 ["Sindhi","📝","Sindhi Language"],
 ["Islamiat","☪️","Islamic Studies"]
-
 ],
 
 "Class 9":[
-
 ["English","🇬🇧","English"],
 ["Urdu","📖","Urdu"],
 ["Mathematics","📐","Mathematics"],
@@ -1327,11 +1238,9 @@ const subjectsByClass = {
 ["Biology","🧬","Biology"],
 ["Islamiat","☪️","Islamiat"],
 ["Pakistan Studies","🇵🇰","Pakistan Studies"]
-
 ],
 
 "Class 10":[
-
 ["English","🇬🇧","English"],
 ["Urdu","📖","Urdu"],
 ["Mathematics","📐","Mathematics"],
@@ -1340,11 +1249,9 @@ const subjectsByClass = {
 ["Biology","🧬","Biology"],
 ["Islamiat","☪️","Islamiat"],
 ["Pakistan Studies","🇵🇰","Pakistan Studies"]
-
 ],
 
 "Class 11":[
-
 ["English","🇬🇧","English"],
 ["Urdu","📖","Urdu"],
 ["Mathematics","📐","Mathematics"],
@@ -1353,11 +1260,9 @@ const subjectsByClass = {
 ["Biology","🧬","Biology"],
 ["Islamiat","☪️","Islamiat"],
 ["Pakistan Studies","🇵🇰","Pakistan Studies"]
-
 ],
 
 "Class 12":[
-
 ["English","🇬🇧","English"],
 ["Urdu","📖","Urdu"],
 ["Mathematics","📐","Mathematics"],
@@ -1366,49 +1271,47 @@ const subjectsByClass = {
 ["Biology","🧬","Biology"],
 ["Islamiat","☪️","Islamiat"],
 ["Pakistan Studies","🇵🇰","Pakistan Studies"]
-
 ]
 
 };
 
 
 /* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+let unsubscribeRequests=null;
+let unsubscribeFriends=null;
+let unsubscribeChat=null;
+
+let currentChatUid=null;
+
+let tasks=[];
+
+
+/* =====================================================
    AUTH UI
 ===================================================== */
 
-const authScreen =
-document.getElementById("authScreen");
+const authScreen=document.getElementById("authScreen");
+const appScreen=document.getElementById("app");
 
-const appScreen =
-document.getElementById("app");
+const loginBox=document.getElementById("loginBox");
+const signupBox=document.getElementById("signupBox");
 
-const loginBox =
-document.getElementById("loginBox");
+const loginForm=document.getElementById("loginForm");
+const signupForm=document.getElementById("signupForm");
 
-const signupBox =
-document.getElementById("signupBox");
-
-const loginForm =
-document.getElementById("loginForm");
-
-const signupForm =
-document.getElementById("signupForm");
-
-const loginMessage =
-document.getElementById("loginMessage");
-
-const signupMessage =
-document.getElementById("signupMessage");
+const loginMessage=document.getElementById("loginMessage");
+const signupMessage=document.getElementById("signupMessage");
 
 
 window.showLogin=function(){
 
 loginBox.classList.remove("hidden");
-
 signupBox.classList.add("hidden");
 
 loginMessage.innerHTML="";
-
 signupMessage.innerHTML="";
 
 };
@@ -1417,11 +1320,9 @@ signupMessage.innerHTML="";
 window.showSignup=function(){
 
 loginBox.classList.add("hidden");
-
 signupBox.classList.remove("hidden");
 
 loginMessage.innerHTML="";
-
 signupMessage.innerHTML="";
 
 };
@@ -1461,11 +1362,11 @@ return "❌ Email/Password login is not enabled in Firebase.";
 if(code.includes("network-request-failed"))
 return "❌ Network error. Check your internet.";
 
-if(code.includes("api-key-not-valid"))
-return "❌ Firebase API key is not valid.";
-
 if(code.includes("permission-denied"))
-return "❌ Firestore permission denied. Check your Firestore Rules.";
+return "❌ Firebase permission denied. Check your Firestore Rules.";
+
+if(code.includes("failed-precondition"))
+return "❌ A Firestore index may be required. Check the browser console.";
 
 return "❌ "+(error.message || "Something went wrong.");
 
@@ -1476,32 +1377,19 @@ return "❌ "+(error.message || "Something went wrong.");
    SIGN UP
 ===================================================== */
 
-signupForm.addEventListener(
-"submit",
-async function(e){
+signupForm.addEventListener("submit",async function(e){
 
 e.preventDefault();
 
-const name =
-document.getElementById("signupName")
-.value.trim();
+const name=document.getElementById("signupName").value.trim();
 
-const studentClass =
-document.getElementById("signupClass")
-.value;
+const studentClass=document.getElementById("signupClass").value;
 
-const email =
-document.getElementById("signupEmail")
-.value.trim()
-.toLowerCase();
+const email=document.getElementById("signupEmail").value.trim().toLowerCase();
 
-const password =
-document.getElementById("signupPassword")
-.value;
+const password=document.getElementById("signupPassword").value;
 
-const confirm =
-document.getElementById("signupConfirm")
-.value;
+const confirm=document.getElementById("signupConfirm").value;
 
 
 if(password!==confirm){
@@ -1524,59 +1412,38 @@ Creating your account...
 </div>`;
 
 
-const credential =
-await createUserWithEmailAndPassword(
+const credential=await createUserWithEmailAndPassword(
 auth,
 email,
 password
 );
 
-
-const user =
-credential.user;
+const user=credential.user;
 
 
-await updateProfile(
-user,
-{
+await updateProfile(user,{
 displayName:name
-}
-);
+});
 
 
 await setDoc(
 doc(db,"users",user.uid),
 {
-
 uid:user.uid,
-
 name:name,
-
 nameLower:name.toLowerCase(),
-
 email:email,
-
 class:studentClass,
-
 createdAt:serverTimestamp()
-
 }
 );
-
 
 signupMessage.innerHTML=`
 <div class="success">
 ✅ Account created! Opening StudyHub...
 </div>`;
 
-
-/*
-Firebase automatically signs
-the user in.
-*/
-
 }
-
 catch(error){
 
 signupMessage.innerHTML=`
@@ -1593,21 +1460,13 @@ ${firebaseError(error)}
    LOGIN
 ===================================================== */
 
-loginForm.addEventListener(
-"submit",
-async function(e){
+loginForm.addEventListener("submit",async function(e){
 
 e.preventDefault();
 
-const email =
-document.getElementById("loginEmail")
-.value.trim()
-.toLowerCase();
+const email=document.getElementById("loginEmail").value.trim().toLowerCase();
 
-const password =
-document.getElementById("loginPassword")
-.value;
-
+const password=document.getElementById("loginPassword").value;
 
 loginMessage.innerHTML=`
 <div class="success">
@@ -1624,7 +1483,6 @@ password
 );
 
 }
-
 catch(error){
 
 loginMessage.innerHTML=`
@@ -1641,17 +1499,11 @@ ${firebaseError(error)}
    AUTH STATE
 ===================================================== */
 
-let unsubscribeRequests=null;
-let unsubscribeFriends=null;
-
-onAuthStateChanged(
-auth,
-async function(user){
+onAuthStateChanged(auth,async function(user){
 
 if(!user){
 
 authScreen.classList.remove("hidden");
-
 appScreen.classList.add("hidden");
 
 if(unsubscribeRequests)
@@ -1660,51 +1512,44 @@ unsubscribeRequests();
 if(unsubscribeFriends)
 unsubscribeFriends();
 
+if(unsubscribeChat)
+unsubscribeChat();
+
+currentChatUid=null;
+
 return;
 
 }
 
 
 authScreen.classList.add("hidden");
-
 appScreen.classList.remove("hidden");
 
 
-const name =
-user.displayName ||
-user.email.split("@")[0];
+const name=user.displayName || user.email.split("@")[0];
 
 
-document.getElementById("userBadge")
-.textContent="👋 "+name;
+document.getElementById("userBadge").textContent="👋 "+name;
 
-document.getElementById("profileName")
-.textContent=name;
+document.getElementById("profileName").textContent=name;
 
-document.getElementById("profileEmail")
-.textContent=user.email;
+document.getElementById("profileEmail").textContent=user.email;
 
-document.getElementById("profileUid")
-.textContent=user.uid;
+document.getElementById("profileUid").textContent=user.uid;
 
 
 try{
 
-const userSnap =
-await getDoc(
-doc(db,"users",user.uid)
-);
+const userSnap=await getDoc(doc(db,"users",user.uid));
 
 
 if(userSnap.exists()){
 
 const data=userSnap.data();
 
-document.getElementById("classNumber")
-.textContent=data.class || "-";
+document.getElementById("classNumber").textContent=data.class || "-";
 
-document.getElementById("profileClass")
-.textContent=data.class || "-";
+document.getElementById("profileClass").textContent=data.class || "-";
 
 renderSubjects(data.class);
 
@@ -1724,8 +1569,7 @@ listenToRequests();
 
 listenToFriends();
 
-}
-);
+});
 
 
 /* =====================================================
@@ -1733,6 +1577,11 @@ listenToFriends();
 ===================================================== */
 
 window.logout=async function(){
+
+if(unsubscribeChat)
+unsubscribeChat();
+
+currentChatUid=null;
 
 await signOut(auth);
 
@@ -1745,48 +1594,30 @@ await signOut(auth);
 
 window.showPage=function(page,button){
 
-document
-.querySelectorAll(".page")
-.forEach(p=>
-p.classList.remove("active")
+document.querySelectorAll(".page").forEach(
+p=>p.classList.remove("active")
 );
 
-
-document
-.querySelectorAll(".nav-btn")
-.forEach(b=>
-b.classList.remove("active")
+document.querySelectorAll(".nav-btn").forEach(
+b=>b.classList.remove("active")
 );
 
-
-document
-.getElementById(page)
-.classList.add("active");
-
+document.getElementById(page).classList.add("active");
 
 if(button)
 button.classList.add("active");
 
 
 const titles={
-
 dashboard:"Dashboard",
-
 subjects:"Subjects",
-
 tasks:"Tasks",
-
 friends:"Friends",
-
 focus:"Focus",
-
 profile:"Profile"
-
 };
 
-
-document.getElementById("pageTitle")
-.textContent=titles[page];
+document.getElementById("pageTitle").textContent=titles[page];
 
 };
 
@@ -1797,36 +1628,20 @@ document.getElementById("pageTitle")
 
 function renderSubjects(studentClass){
 
-const subjects =
-subjectsByClass[studentClass] || [];
+const subjects=subjectsByClass[studentClass] || [];
 
-const dashboard =
-document.getElementById(
-"dashboardSubjects"
-);
+const dashboard=document.getElementById("dashboardSubjects");
 
-const all =
-document.getElementById(
-"allSubjects"
-);
-
+const all=document.getElementById("allSubjects");
 
 dashboard.innerHTML="";
-
 all.innerHTML="";
 
+document.getElementById("subjectCount").textContent=subjects.length;
 
-document.getElementById(
-"subjectCount"
-).textContent=subjects.length;
+subjects.forEach((subject,index)=>{
 
-
-subjects.forEach(
-(subject,index)=>{
-
-const progress =
-60 + ((index*7)%35);
-
+const progress=60+((index*7)%35);
 
 const html=`
 
@@ -1857,23 +1672,14 @@ style="width:${progress}%">
 
 `;
 
+dashboard.insertAdjacentHTML("beforeend",html);
 
-dashboard.insertAdjacentHTML(
-"beforeend",
-html
-);
-
-all.insertAdjacentHTML(
-"beforeend",
-html
-);
+all.insertAdjacentHTML("beforeend",html);
 
 });
 
 
-document.getElementById(
-"subjectsHeading"
-).textContent=
+document.getElementById("subjectsHeading").textContent=
 studentClass+" Subjects 📚";
 
 }
@@ -1883,38 +1689,23 @@ studentClass+" Subjects 📚";
    TASKS
 ===================================================== */
 
-let tasks=[];
-
-
-document
-.getElementById("taskForm")
-.addEventListener(
+document.getElementById("taskForm").addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
-const input =
-document.getElementById(
-"taskInput"
-);
+const input=document.getElementById("taskInput");
 
-const text =
-input.value.trim();
+const text=input.value.trim();
 
 if(!text)return;
 
-
 tasks.push({
-
 id:Date.now(),
-
 text:text,
-
 done:false
-
 });
-
 
 input.value="";
 
@@ -1948,13 +1739,11 @@ const user=auth.currentUser;
 
 if(!user)return;
 
-const saved=
-localStorage.getItem(
+const saved=localStorage.getItem(
 "studyhub_tasks_"+user.uid
 );
 
-tasks=
-saved ? JSON.parse(saved) : [];
+tasks=saved ? JSON.parse(saved) : [];
 
 renderTasks();
 
@@ -1963,10 +1752,7 @@ renderTasks();
 
 function renderTasks(){
 
-const list=
-document.getElementById(
-"taskList"
-);
+const list=document.getElementById("taskList");
 
 list.innerHTML="";
 
@@ -1988,11 +1774,9 @@ return;
 
 tasks.forEach(task=>{
 
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
-div.className=
-"task "+(task.done?"done":"");
+div.className="task "+(task.done?"done":"");
 
 
 div.innerHTML=`
@@ -2020,8 +1804,7 @@ updateTaskStats();
 
 window.toggleTask=function(id){
 
-const task=
-tasks.find(t=>t.id===id);
+const task=tasks.find(t=>t.id===id);
 
 if(!task)return;
 
@@ -2036,21 +1819,21 @@ renderTasks();
 
 function updateTaskStats(){
 
-document.getElementById(
-"taskCount"
-).textContent=tasks.length;
+document.getElementById("taskCount").textContent=tasks.length;
 
-document.getElementById(
-"completedCount"
-).textContent=
+document.getElementById("completedCount").textContent=
 tasks.filter(t=>t.done).length;
 
 }
 
 
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
 function escapeHTML(str){
 
-return str
+return String(str)
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -2066,27 +1849,18 @@ return str
 
 window.searchStudents=async function(){
 
-const input=
-document.getElementById(
-"friendSearchInput"
-);
+const input=document.getElementById("friendSearchInput");
 
-const term=
-input.value.trim().toLowerCase();
+const term=input.value.trim().toLowerCase();
 
-const results=
-document.getElementById(
-"searchResults"
-);
-
+const results=document.getElementById("searchResults");
 
 if(!term){
 
 results.innerHTML=`
 <div class="empty">
 Type a name or email to search.
-</div>
-`;
+</div>`;
 
 return;
 
@@ -2101,15 +1875,10 @@ if(!user)return;
 results.innerHTML=`
 <div class="empty">
 🔎 Searching...
-</div>
-`;
+</div>`;
 
 
 try{
-
-/*
-We search both email and name.
-*/
 
 const emailQuery=query(
 collection(db,"users"),
@@ -2122,15 +1891,13 @@ where("nameLower","==",term)
 );
 
 
-const [emailSnap,nameSnap]=
-await Promise.all([
+const [emailSnap,nameSnap]=await Promise.all([
 getDocs(emailQuery),
 getDocs(nameQuery)
 ]);
 
 
 const found=new Map();
-
 
 emailSnap.forEach(
 d=>found.set(d.id,d.data())
@@ -2140,7 +1907,6 @@ nameSnap.forEach(
 d=>found.set(d.id,d.data())
 );
 
-
 found.delete(user.uid);
 
 
@@ -2149,8 +1915,7 @@ if(found.size===0){
 results.innerHTML=`
 <div class="empty">
 No student found. Try the exact name or email.
-</div>
-`;
+</div>`;
 
 return;
 
@@ -2160,19 +1925,69 @@ return;
 results.innerHTML="";
 
 
-found.forEach(
-student=>{
+for(const student of found.values()){
 
-const div=
-document.createElement("div");
+const status=await getFriendStatus(
+user.uid,
+student.uid
+);
+
+
+const div=document.createElement("div");
 
 div.className="person-card";
 
 
-const initial=
-(student.name || "S")
+const initial=(student.name || "S")
 .charAt(0)
 .toUpperCase();
+
+
+let actionHTML="";
+
+
+if(status==="friends"){
+
+actionHTML=`
+<button
+class="small-btn chat-btn"
+onclick="openChat('${student.uid}')">
+💬 Chat
+</button>
+`;
+
+}
+else if(status==="outgoing"){
+
+actionHTML=`
+<button class="small-btn pending-btn" disabled>
+⏳ Request Sent
+</button>
+`;
+
+}
+else if(status==="incoming"){
+
+actionHTML=`
+<button
+class="small-btn accept-btn"
+onclick="acceptIncomingByUser('${student.uid}')">
+✅ Accept Request
+</button>
+`;
+
+}
+else{
+
+actionHTML=`
+<button
+class="small-btn"
+onclick="sendFriendRequest('${student.uid}')">
+➕ Add Friend
+</button>
+`;
+
+}
 
 
 div.innerHTML=`
@@ -2186,11 +2001,11 @@ ${initial}
 <div>
 
 <div class="person-name">
-${escapeHTML(student.name)}
+${escapeHTML(student.name || "Student")}
 </div>
 
 <div class="person-email">
-${escapeHTML(student.email)}
+${escapeHTML(student.email || "")}
 </div>
 
 <div class="person-email">
@@ -2201,23 +2016,17 @@ ${escapeHTML(student.class || "Student")}
 
 </div>
 
-<button
-class="small-btn"
-onclick="sendFriendRequest('${student.uid}')">
-
-➕ Add Friend
-
-</button>
+<div>
+${actionHTML}
+</div>
 
 `;
 
-
 results.appendChild(div);
-
-});
 
 }
 
+}
 catch(error){
 
 console.error(error);
@@ -2225,12 +2034,63 @@ console.error(error);
 results.innerHTML=`
 <div class="error">
 ${firebaseError(error)}
-</div>
-`;
+</div>`;
 
 }
 
 };
+
+
+/* =====================================================
+   FRIEND STATUS
+===================================================== */
+
+async function getFriendStatus(myUid,otherUid){
+
+try{
+
+const friendshipId=createFriendshipId(myUid,otherUid);
+
+const friendship=await getDoc(
+doc(db,"friendships",friendshipId)
+);
+
+if(friendship.exists())
+return "friends";
+
+
+const outgoingId=myUid+"_"+otherUid;
+
+const outgoing=await getDoc(
+doc(db,"friendRequests",outgoingId)
+);
+
+if(outgoing.exists() && outgoing.data().status==="pending")
+return "outgoing";
+
+
+const incomingId=otherUid+"_"+myUid;
+
+const incoming=await getDoc(
+doc(db,"friendRequests",incomingId)
+);
+
+if(incoming.exists() && incoming.data().status==="pending")
+return "incoming";
+
+
+return "none";
+
+}
+catch(error){
+
+console.error(error);
+
+return "none";
+
+}
+
+}
 
 
 /* =====================================================
@@ -2246,49 +2106,49 @@ if(!user)return;
 if(toUid===user.uid)return;
 
 
-const requestId=
-user.uid+"_"+toUid;
-
-
 try{
 
-const existing=
-await getDoc(
-doc(
-db,
-"friendRequests",
-requestId
-)
+const friendshipId=createFriendshipId(
+user.uid,
+toUid
 );
 
+const alreadyFriends=await getDoc(
+doc(db,"friendships",friendshipId)
+);
 
-if(existing.exists()){
+if(alreadyFriends.exists()){
 
-alert("Friend request already exists.");
+alert("You are already friends with this student.");
 
 return;
 
 }
 
 
-/*
-Check reverse request.
-*/
+const requestId=user.uid+"_"+toUid;
 
-const reverseId=
-toUid+"_"+user.uid;
+const existing=await getDoc(
+doc(db,"friendRequests",requestId)
+);
 
-const reverse=
-await getDoc(
-doc(
-db,
-"friendRequests",
-reverseId
-)
+if(existing.exists()){
+
+alert("Friend request already sent.");
+
+return;
+
+}
+
+
+const reverseId=toUid+"_"+user.uid;
+
+const reverse=await getDoc(
+doc(db,"friendRequests",reverseId)
 );
 
 
-if(reverse.exists()){
+if(reverse.exists() && reverse.data().status==="pending"){
 
 alert(
 "This student has already sent you a request. Check Friend Requests."
@@ -2300,30 +2160,24 @@ return;
 
 
 await setDoc(
-doc(
-db,
-"friendRequests",
-requestId
-),
+doc(db,"friendRequests",requestId),
 {
-
 fromUid:user.uid,
-
 toUid:toUid,
-
 status:"pending",
-
 createdAt:serverTimestamp()
-
 }
 );
 
 
 alert("✅ Friend request sent!");
 
-}
+await searchStudents();
 
+}
 catch(error){
+
+console.error(error);
 
 alert(firebaseError(error));
 
@@ -2354,15 +2208,11 @@ where("status","==","pending")
 );
 
 
-unsubscribeRequests=
-onSnapshot(
+unsubscribeRequests=onSnapshot(
 q,
 async snapshot=>{
 
-const container=
-document.getElementById(
-"requestsList"
-);
+const container=document.getElementById("requestsList");
 
 container.innerHTML="";
 
@@ -2372,8 +2222,7 @@ if(snapshot.empty){
 container.innerHTML=`
 <div class="empty">
 No new friend requests.
-</div>
-`;
+</div>`;
 
 return;
 
@@ -2382,21 +2231,15 @@ return;
 
 for(const requestDoc of snapshot.docs){
 
-const request=
-requestDoc.data();
-
+const request=requestDoc.data();
 
 let person={};
 
+
 try{
 
-const personSnap=
-await getDoc(
-doc(
-db,
-"users",
-request.fromUid
-)
+const personSnap=await getDoc(
+doc(db,"users",request.fromUid)
 );
 
 if(personSnap.exists())
@@ -2404,18 +2247,18 @@ person=personSnap.data();
 
 }
 catch(e){
+
 console.error(e);
+
 }
 
 
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className="person-card";
 
 
-const initial=
-(person.name || "S")
+const initial=(person.name || "S")
 .charAt(0)
 .toUpperCase();
 
@@ -2442,7 +2285,6 @@ ${escapeHTML(person.email || "")}
 
 </div>
 
-
 <div>
 
 <button
@@ -2465,7 +2307,6 @@ onclick="rejectRequest('${requestDoc.id}')">
 
 `;
 
-
 container.appendChild(div);
 
 }
@@ -2475,13 +2316,10 @@ error=>{
 
 console.error(error);
 
-document.getElementById(
-"requestsList"
-).innerHTML=`
+document.getElementById("requestsList").innerHTML=`
 <div class="error">
 ${firebaseError(error)}
-</div>
-`;
+</div>`;
 
 }
 );
@@ -2490,11 +2328,28 @@ ${firebaseError(error)}
 
 
 /* =====================================================
+   ACCEPT INCOMING REQUEST FROM SEARCH
+===================================================== */
+
+window.acceptIncomingByUser=async function(fromUid){
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+
+const requestId=fromUid+"_"+user.uid;
+
+await acceptRequest(requestId,fromUid);
+
+};
+
+
+/* =====================================================
    ACCEPT REQUEST
 ===================================================== */
 
-window.acceptRequest=
-async function(requestId,fromUid){
+window.acceptRequest=async function(requestId,fromUid){
 
 const user=auth.currentUser;
 
@@ -2503,42 +2358,29 @@ if(!user)return;
 
 try{
 
-const friendshipId=
-createFriendshipId(
+const friendshipId=createFriendshipId(
 user.uid,
 fromUid
 );
 
 
 await setDoc(
-doc(
-db,
-"friendships",
-friendshipId
-),
+doc(db,"friendships",friendshipId),
 {
-
 users:[
 user.uid,
 fromUid
 ],
-
 createdAt:serverTimestamp()
-
 }
 );
 
 
 await updateDoc(
-doc(
-db,
-"friendRequests",
-requestId
-),
+doc(db,"friendRequests",requestId),
 {
-
-status:"accepted"
-
+status:"accepted",
+acceptedAt:serverTimestamp()
 }
 );
 
@@ -2546,8 +2388,9 @@ status:"accepted"
 alert("🎉 You are now friends!");
 
 }
-
 catch(error){
+
+console.error(error);
 
 alert(firebaseError(error));
 
@@ -2560,17 +2403,12 @@ alert(firebaseError(error));
    REJECT REQUEST
 ===================================================== */
 
-window.rejectRequest=
-async function(requestId){
+window.rejectRequest=async function(requestId){
 
 try{
 
 await deleteDoc(
-doc(
-db,
-"friendRequests",
-requestId
-)
+doc(db,"friendRequests",requestId)
 );
 
 }
@@ -2615,22 +2453,16 @@ where("users","array-contains",user.uid)
 );
 
 
-unsubscribeFriends=
-onSnapshot(
+unsubscribeFriends=onSnapshot(
 q,
 async snapshot=>{
 
-const container=
-document.getElementById(
-"friendsList"
-);
+const container=document.getElementById("friendsList");
 
 container.innerHTML="";
 
 
-document.getElementById(
-"profileFriendCount"
-).textContent=
+document.getElementById("profileFriendCount").textContent=
 snapshot.size;
 
 
@@ -2640,8 +2472,7 @@ container.innerHTML=`
 <div class="empty">
 You don't have any friends yet.
 Search for a student above to add one! 👥
-</div>
-`;
+</div>`;
 
 return;
 
@@ -2650,25 +2481,21 @@ return;
 
 for(const friendDoc of snapshot.docs){
 
-const friendship=
-friendDoc.data();
+const friendship=friendDoc.data();
 
-
-const friendUid=
-friendship.users.find(
+const friendUid=friendship.users.find(
 id=>id!==user.uid
 );
-
 
 if(!friendUid)continue;
 
 
 let person={};
 
+
 try{
 
-const personSnap=
-await getDoc(
+const personSnap=await getDoc(
 doc(db,"users",friendUid)
 );
 
@@ -2683,14 +2510,12 @@ console.error(e);
 }
 
 
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className="person-card";
 
 
-const initial=
-(person.name || "S")
+const initial=(person.name || "S")
 .charAt(0)
 .toUpperCase();
 
@@ -2699,8 +2524,7 @@ div.innerHTML=`
 
 <div class="person-info">
 
-<div
-class="avatar">
+<div class="avatar">
 ${initial}
 </div>
 
@@ -2722,16 +2546,27 @@ ${escapeHTML(person.class || "")}
 
 </div>
 
+<div>
+
+<button
+class="small-btn chat-btn"
+onclick="openChat('${friendUid}')">
+
+💬 Chat
+
+</button>
+
 <button
 class="small-btn remove-btn"
-onclick="removeFriend('${friendshipDoc.id}')">
+onclick="removeFriend('${friendDoc.id}')">
 
 Remove
 
 </button>
 
-`;
+</div>
 
+`;
 
 container.appendChild(div);
 
@@ -2742,13 +2577,10 @@ error=>{
 
 console.error(error);
 
-document.getElementById(
-"friendsList"
-).innerHTML=`
+document.getElementById("friendsList").innerHTML=`
 <div class="error">
 ${firebaseError(error)}
-</div>
-`;
+</div>`;
 
 }
 );
@@ -2760,8 +2592,7 @@ ${firebaseError(error)}
    REMOVE FRIEND
 ===================================================== */
 
-window.removeFriend=
-async function(friendshipId){
+window.removeFriend=async function(friendshipId){
 
 if(!confirm(
 "Are you sure you want to remove this friend?"
@@ -2771,12 +2602,14 @@ if(!confirm(
 try{
 
 await deleteDoc(
-doc(
-db,
-"friendships",
-friendshipId
-)
+doc(db,"friendships",friendshipId)
 );
+
+if(currentChatUid){
+
+closeChat();
+
+}
 
 }
 catch(error){
@@ -2786,6 +2619,306 @@ alert(firebaseError(error));
 }
 
 };
+
+
+/* =====================================================
+   CHAT ID
+===================================================== */
+
+function createChatId(a,b){
+
+return [a,b].sort().join("_");
+
+}
+
+
+/* =====================================================
+   OPEN CHAT
+===================================================== */
+
+window.openChat=async function(friendUid){
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+if(friendUid===user.uid)return;
+
+
+try{
+
+const friendship=await getDoc(
+doc(db,"friendships",createFriendshipId(user.uid,friendUid))
+);
+
+if(!friendship.exists()){
+
+alert("You must be friends before you can chat.");
+
+return;
+
+}
+
+
+const personSnap=await getDoc(
+doc(db,"users",friendUid)
+);
+
+if(!personSnap.exists()){
+
+alert("This student's profile could not be found.");
+
+return;
+
+}
+
+
+const person=personSnap.data();
+
+currentChatUid=friendUid;
+
+
+document.getElementById("chatContainer")
+.classList.remove("hidden");
+
+
+document.getElementById("chatName").textContent=
+person.name || "Student";
+
+
+document.getElementById("chatAvatar").textContent=
+(person.name || "S").charAt(0).toUpperCase();
+
+
+document.getElementById("messageInput").focus();
+
+
+listenToChat(friendUid);
+
+}
+catch(error){
+
+console.error(error);
+
+alert(firebaseError(error));
+
+}
+
+};
+
+
+/* =====================================================
+   CLOSE CHAT
+===================================================== */
+
+window.closeChat=function(){
+
+if(unsubscribeChat)
+unsubscribeChat();
+
+unsubscribeChat=null;
+
+currentChatUid=null;
+
+document.getElementById("chatContainer")
+.classList.add("hidden");
+
+document.getElementById("messages").innerHTML="";
+
+};
+
+
+/* =====================================================
+   LISTEN TO CHAT
+===================================================== */
+
+function listenToChat(friendUid){
+
+if(unsubscribeChat)
+unsubscribeChat();
+
+
+const user=auth.currentUser;
+
+if(!user)return;
+
+
+const chatId=createChatId(
+user.uid,
+friendUid
+);
+
+
+const q=query(
+collection(db,"chats",chatId,"messages"),
+orderBy("createdAt","asc"),
+limit(200)
+);
+
+
+unsubscribeChat=onSnapshot(
+q,
+snapshot=>{
+
+const container=document.getElementById("messages");
+
+container.innerHTML="";
+
+
+if(snapshot.empty){
+
+container.innerHTML=`
+<div class="empty">
+No messages yet. Say hello! 👋
+</div>`;
+
+return;
+
+}
+
+
+snapshot.forEach(messageDoc=>{
+
+const message=messageDoc.data();
+
+const mine=message.senderUid===user.uid;
+
+const div=document.createElement("div");
+
+div.className="message "+(
+mine ? "mine" : "theirs"
+);
+
+
+let time="";
+
+if(message.createdAt){
+
+try{
+
+time=message.createdAt
+.toDate()
+.toLocaleTimeString(
+[],
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
+
+}
+catch(e){}
+
+}
+
+
+div.innerHTML=`
+
+${escapeHTML(message.text || "")}
+
+<span class="message-time">
+${time}
+</span>
+
+`;
+
+container.appendChild(div);
+
+});
+
+
+container.scrollTop=container.scrollHeight;
+
+},
+error=>{
+
+console.error(error);
+
+document.getElementById("messages").innerHTML=`
+<div class="error">
+${firebaseError(error)}
+</div>`;
+
+}
+);
+
+}
+
+
+/* =====================================================
+   SEND CHAT MESSAGE
+===================================================== */
+
+document.getElementById("chatForm")
+.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+
+const user=auth.currentUser;
+
+if(!user || !currentChatUid)return;
+
+
+const input=document.getElementById("messageInput");
+
+const text=input.value.trim();
+
+if(!text)return;
+
+
+const friendUid=currentChatUid;
+
+const chatId=createChatId(
+user.uid,
+friendUid
+);
+
+
+try{
+
+input.disabled=true;
+
+
+await setDoc(
+doc(
+db,
+"chats",
+chatId,
+"messages",
+crypto.randomUUID()
+),
+{
+senderUid:user.uid,
+receiverUid:friendUid,
+text:text,
+createdAt:serverTimestamp()
+}
+);
+
+
+input.value="";
+
+}
+catch(error){
+
+console.error(error);
+
+alert(firebaseError(error));
+
+}
+finally{
+
+input.disabled=false;
+
+input.focus();
+
+}
+
+}
+);
 
 
 /* =====================================================
@@ -2799,16 +2932,12 @@ let timer=null;
 
 function updateTimer(){
 
-const minutes=
-Math.floor(seconds/60);
+const minutes=Math.floor(seconds/60);
 
-const secs=
-seconds%60;
+const secs=seconds%60;
 
 
-document.getElementById(
-"timerDisplay"
-).textContent=
+document.getElementById("timerDisplay").textContent=
 String(minutes).padStart(2,"0")
 +":"
 +String(secs).padStart(2,"0");
@@ -2836,9 +2965,7 @@ clearInterval(timer);
 
 timer=null;
 
-alert(
-"🎉 Focus session complete!"
-);
+alert("🎉 Focus session complete!");
 
 }
 
