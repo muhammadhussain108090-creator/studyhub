@@ -1,13 +1,2242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudyHub</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#172033;
+}
+
+button{
+    cursor:pointer;
+    border:0;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+#authScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.auth-card{
+    width:100%;
+    max-width:430px;
+    background:white;
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+.logo{
+    text-align:center;
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#687386;
+    margin-bottom:25px;
+}
+
+.auth-card input,
+.auth-card select{
+    width:100%;
+    padding:13px 15px;
+    border:1px solid #d8deea;
+    border-radius:12px;
+    margin-bottom:12px;
+    outline:none;
+    font-size:15px;
+}
+
+.auth-card input:focus,
+.auth-card select:focus{
+    border-color:#667eea;
+}
+
+.primary-btn{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    background:#667eea;
+    color:white;
+    font-weight:700;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.google-btn{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    background:#fff;
+    color:#222;
+    border:1px solid #ddd;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.secondary-btn{
+    width:100%;
+    padding:11px;
+    border-radius:12px;
+    background:#eef1f7;
+    color:#374151;
+    font-weight:700;
+}
+
+.auth-switch{
+    text-align:center;
+    margin-top:18px;
+    color:#667386;
+}
+
+.auth-switch button{
+    background:none;
+    color:#667eea;
+    font-weight:700;
+}
+
+.auth-error{
+    color:#dc2626;
+    background:#fff1f2;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
+    min-height:100vh;
+}
+
+.topbar{
+    height:70px;
+    background:white;
+    border-bottom:1px solid #e4e8f0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.brand{
+    font-size:25px;
+    font-weight:800;
+    color:#667eea;
+}
+
+.user-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#667eea;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+}
+
+.logout-btn{
+    padding:9px 14px;
+    border-radius:10px;
+    background:#fee2e2;
+    color:#b91c1c;
+    font-weight:700;
+}
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 70px);
+}
+
+.sidebar{
+    width:230px;
+    background:#fff;
+    border-right:1px solid #e4e8f0;
+    padding:20px 12px;
+}
+
+.nav-btn{
+    width:100%;
+    text-align:left;
+    padding:13px 15px;
+    border-radius:11px;
+    background:transparent;
+    color:#596579;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:#eef0ff;
+    color:#5966d8;
+}
+
+.main{
+    flex:1;
+    padding:28px;
+    max-width:1300px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-title{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.page-subtitle{
+    color:#738096;
+    margin-bottom:25px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.stat-card{
+    background:white;
+    padding:22px;
+    border-radius:17px;
+    box-shadow:0 4px 15px rgba(30,40,80,.05);
+}
+
+.stat-card h3{
+    color:#7a8597;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.stat-card strong{
+    font-size:30px;
+}
+
+/* =========================
+   SUBJECTS
+========================= */
+
+.subject-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.subject-card{
+    background:white;
+    border-radius:17px;
+    padding:25px;
+    box-shadow:0 4px 15px rgba(30,40,80,.05);
+    font-weight:700;
+}
+
+/* =========================
+   TASKS
+========================= */
+
+.task-form{
+    background:white;
+    padding:20px;
+    border-radius:17px;
+    margin-bottom:20px;
+}
+
+.task-form input,
+.task-form select{
+    padding:12px;
+    border:1px solid #dce1eb;
+    border-radius:10px;
+    margin-right:7px;
+    margin-bottom:8px;
+}
+
+.task-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.task{
+    background:white;
+    padding:17px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.task.done{
+    opacity:.6;
+    text-decoration:line-through;
+}
+
+.delete-task{
+    background:#fee2e2;
+    color:#b91c1c;
+    padding:7px 10px;
+    border-radius:8px;
+}
+
+/* =========================
+   FRIENDS
+========================= */
+
+.friend-search{
+    background:white;
+    padding:20px;
+    border-radius:17px;
+    margin-bottom:20px;
+}
+
+.search-row{
+    display:flex;
+    gap:10px;
+}
+
+.search-row input{
+    flex:1;
+    padding:13px 15px;
+    border:1px solid #dce1eb;
+    border-radius:11px;
+}
+
+.search-row button{
+    padding:13px 20px;
+    background:#667eea;
+    color:white;
+    border-radius:11px;
+    font-weight:700;
+}
+
+.section{
+    margin-top:25px;
+}
+
+.section h2{
+    margin-bottom:12px;
+}
+
+.people{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.person-card{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.person-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.person-name{
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+.person-email{
+    color:#7a8597;
+    font-size:13px;
+    margin-top:2px;
+}
+
+.small-btn{
+    padding:9px 13px;
+    border-radius:9px;
+    background:#667eea;
+    color:white;
+    font-weight:700;
+}
+
+.chat-btn{
+    background:#10b981;
+}
+
+.accept-btn{
+    background:#10b981;
+}
+
+.pending-btn{
+    background:#e5e7eb;
+    color:#555;
+}
+
+.danger-btn{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.empty{
+    background:white;
+    padding:25px;
+    text-align:center;
+    color:#788398;
+    border-radius:14px;
+}
+
+.error{
+    background:#fff1f2;
+    color:#b91c1c;
+    padding:15px;
+    border-radius:12px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-box{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:370px;
+    max-width:calc(100vw - 40px);
+    height:530px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 15px 50px rgba(0,0,0,.2);
+    z-index:100;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.chat-header{
+    background:#667eea;
+    color:white;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.chat-header button{
+    background:rgba(255,255,255,.2);
+    color:white;
+    width:32px;
+    height:32px;
+    border-radius:8px;
+}
+
+.messages{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+    background:#f5f7fb;
+}
+
+.message{
+    max-width:78%;
+    padding:10px 13px;
+    border-radius:14px;
+    margin-bottom:9px;
+    line-height:1.4;
+    word-wrap:break-word;
+}
+
+.message.mine{
+    margin-left:auto;
+    background:#667eea;
+    color:white;
+    border-bottom-right-radius:4px;
+}
+
+.message.theirs{
+    background:white;
+    border:1px solid #e5e8ef;
+    border-bottom-left-radius:4px;
+}
+
+.chat-form{
+    display:flex;
+    gap:7px;
+    padding:10px;
+    border-top:1px solid #e5e8ef;
+}
+
+.chat-form input{
+    flex:1;
+    padding:11px;
+    border:1px solid #dce1eb;
+    border-radius:10px;
+}
+
+.chat-form button{
+    background:#667eea;
+    color:white;
+    padding:0 16px;
+    border-radius:10px;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    max-width:600px;
+}
+
+.profile-row{
+    padding:13px 0;
+    border-bottom:1px solid #edf0f5;
+}
+
+.profile-row span{
+    color:#788398;
+    display:block;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+/* =========================
+   TIMER
+========================= */
+
+.timer-card{
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    max-width:500px;
+}
+
+.timer{
+    font-size:65px;
+    font-weight:800;
+    margin:25px 0;
+}
+
+.timer-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.timer-buttons button{
+    padding:12px 20px;
+    border-radius:10px;
+    background:#667eea;
+    color:white;
+    font-weight:700;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:70px;
+        padding:10px 7px;
+    }
+
+    .nav-btn{
+        font-size:0;
+        text-align:center;
+        padding:13px 5px;
+    }
+
+    .nav-btn::first-letter{
+        font-size:20px;
+    }
+
+    .main{
+        padding:18px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        padding:0 14px;
+    }
+
+    .brand{
+        font-size:20px;
+    }
+
+    .person-card{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .chat-box{
+        right:10px;
+        bottom:10px;
+        width:calc(100vw - 20px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     AUTH SCREEN
+===================================================== -->
+
+<div id="authScreen">
+
+    <div class="auth-card">
+
+        <div class="logo">📚 StudyHub</div>
+
+        <div class="subtitle">
+            Your student study space
+        </div>
+
+        <div id="authError"></div>
+
+        <!-- LOGIN -->
+
+        <div id="loginForm">
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="primary-btn"
+                onclick="loginEmail()"
+            >
+                Login
+            </button>
+
+            <button
+                class="google-btn"
+                onclick="loginGoogle()"
+            >
+                🔵 Continue with Google
+            </button>
+
+            <div class="auth-switch">
+                Don't have an account?
+                <button onclick="showSignup()">
+                    Create account
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- SIGNUP -->
+
+        <div id="signupForm" class="hidden">
+
+            <input
+                id="signupName"
+                type="text"
+                placeholder="Full name"
+            >
+
+            <select id="signupClass">
+
+                <option value="">
+                    Select class
+                </option>
+
+                <option value="Below Class 9">
+                    Below Class 9
+                </option>
+
+                <option value="Class 9">
+                    Class 9
+                </option>
+
+                <option value="Class 10">
+                    Class 10
+                </option>
+
+                <option value="Class 11">
+                    Class 11
+                </option>
+
+                <option value="Class 12">
+                    Class 12
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+            <input
+                id="signupEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+            <input
+                id="signupPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <input
+                id="signupConfirm"
+                type="password"
+                placeholder="Confirm password"
+            >
+
+            <button
+                class="primary-btn"
+                onclick="signupEmail()"
+            >
+                Create Account
+            </button>
+
+            <button
+                class="google-btn"
+                onclick="loginGoogle(true)"
+            >
+                🔵 Sign up with Google
+            </button>
+
+            <div class="auth-switch">
+                Already have an account?
+                <button onclick="showLogin()">
+                    Login
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN APP
+===================================================== -->
+
+<div id="app" class="hidden">
+
+    <div class="topbar">
+
+        <div class="brand">
+            📚 StudyHub
+        </div>
+
+        <div class="user-mini">
+
+            <div
+                class="avatar"
+                id="topAvatar"
+            >
+                S
+            </div>
+
+            <span id="topName">
+                Student
+            </span>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <button
+                class="nav-btn active"
+                onclick="showPage('dashboard',this)"
+            >
+                🏠 Dashboard
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="showPage('subjects',this)"
+            >
+                📚 Subjects
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="showPage('tasks',this)"
+            >
+                ✅ Tasks
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="showPage('friends',this)"
+            >
+                👥 Friends
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="showPage('focus',this)"
+            >
+                ⏱️ Focus
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="showPage('profile',this)"
+            >
+                👤 Profile
+            </button>
+
+        </aside>
+
+
+        <main class="main">
+
+            <!-- DASHBOARD -->
+
+            <section
+                id="dashboard"
+                class="page active"
+            >
+
+                <h1 class="page-title">
+                    Welcome to StudyHub 👋
+                </h1>
+
+                <p class="page-subtitle">
+                    Study smarter. Stay organized. Connect with classmates.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <h3>Tasks</h3>
+                        <strong id="taskCount">0</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Friends</h3>
+                        <strong id="friendCount">0</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Focus Minutes</h3>
+                        <strong id="focusCount">0</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUBJECTS -->
+
+            <section
+                id="subjects"
+                class="page"
+            >
+
+                <h1 class="page-title">
+                    Subjects
+                </h1>
+
+                <p class="page-subtitle">
+                    Your study subjects
+                </p>
+
+                <div
+                    id="subjectGrid"
+                    class="subject-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- TASKS -->
+
+            <section
+                id="tasks"
+                class="page"
+            >
+
+                <h1 class="page-title">
+                    Tasks
+                </h1>
+
+                <p class="page-subtitle">
+                    Manage your study work
+                </p>
+
+                <div class="task-form">
+
+                    <input
+                        id="taskInput"
+                        type="text"
+                        placeholder="Enter a task..."
+                    >
+
+                    <select id="taskSubject">
+
+                        <option>
+                            General
+                        </option>
+
+                        <option>
+                            Mathematics
+                        </option>
+
+                        <option>
+                            English
+                        </option>
+
+                        <option>
+                            Physics
+                        </option>
+
+                        <option>
+                            Chemistry
+                        </option>
+
+                        <option>
+                            Biology
+                        </option>
+
+                        <option>
+                            Urdu
+                        </option>
+
+                        <option>
+                            Islamiat
+                        </option>
+
+                        <option>
+                            Computer
+                        </option>
+
+                    </select>
+
+                    <button
+                        class="small-btn"
+                        onclick="addTask()"
+                    >
+                        + Add Task
+                    </button>
+
+                </div>
+
+                <div
+                    id="taskList"
+                    class="task-list"
+                ></div>
+
+            </section>
+
+
+            <!-- FRIENDS -->
+
+            <section
+                id="friends"
+                class="page"
+            >
+
+                <h1 class="page-title">
+                    Friends
+                </h1>
+
+                <p class="page-subtitle">
+                    Find classmates and chat with your friends.
+                </p>
+
+
+                <div class="friend-search">
+
+                    <div class="search-row">
+
+                        <input
+                            id="friendSearchInput"
+                            type="text"
+                            placeholder="Search by name or email..."
+                            onkeydown="if(event.key==='Enter') searchStudents()"
+                        >
+
+                        <button onclick="searchStudents()">
+                            Search
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>
+                        Search Results
+                    </h2>
+
+                    <div
+                        id="searchResults"
+                        class="people"
+                    >
+                        <div class="empty">
+                            Search for a student.
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>
+                        Friend Requests
+                    </h2>
+
+                    <div
+                        id="requestsList"
+                        class="people"
+                    >
+                        <div class="empty">
+                            No pending requests.
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>
+                        My Friends
+                    </h2>
+
+                    <div
+                        id="friendsList"
+                        class="people"
+                    >
+                        <div class="empty">
+                            You don't have any friends yet.
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOCUS -->
+
+            <section
+                id="focus"
+                class="page"
+            >
+
+                <h1 class="page-title">
+                    Focus Timer
+                </h1>
+
+                <p class="page-subtitle">
+                    Concentrate on your studies.
+                </p>
+
+                <div class="timer-card">
+
+                    <h2>
+                        Focus Session
+                    </h2>
+
+                    <div
+                        id="timer"
+                        class="timer"
+                    >
+                        25:00
+                    </div>
+
+                    <div class="timer-buttons">
+
+                        <button onclick="startTimer()">
+                            Start
+                        </button>
+
+                        <button onclick="pauseTimer()">
+                            Pause
+                        </button>
+
+                        <button onclick="resetTimer()">
+                            Reset
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROFILE -->
+
+            <section
+                id="profile"
+                class="page"
+            >
+
+                <h1 class="page-title">
+                    Profile
+                </h1>
+
+                <p class="page-subtitle">
+                    Your StudyHub profile
+                </p>
+
+                <div class="profile-card">
+
+                    <div class="profile-row">
+
+                        <span>Name</span>
+
+                        <strong id="profileName">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="profile-row">
+
+                        <span>Email</span>
+
+                        <strong id="profileEmail">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="profile-row">
+
+                        <span>Class</span>
+
+                        <strong id="profileClass">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
+<div
+    id="chatBox"
+    class="chat-box hidden"
+>
+
+    <div class="chat-header">
+
+        <strong id="chatName">
+            Chat
+        </strong>
+
+        <button onclick="closeChat()">
+            ✕
+        </button>
+
+    </div>
+
+    <div
+        id="messages"
+        class="messages"
+    ></div>
+
+    <form
+        class="chat-form"
+        onsubmit="sendMessage(event)"
+    >
+
+        <input
+            id="messageInput"
+            type="text"
+            placeholder="Type a message..."
+            autocomplete="off"
+        >
+
+        <button type="submit">
+            Send
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+    updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup
+} from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    collection,
+    query,
+    where,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    onSnapshot,
+    serverTimestamp,
+    orderBy,
+    limit,
+    addDoc
+} from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+
 /* =====================================================
-   SEARCH STUDENTS - FIXED
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyCEFgHDRoDFZ6IZco7iWloLvNCsL3SYckw",
+
+    authDomain:
+    "data-transfer-63111.firebaseapp.com",
+
+    databaseURL:
+    "https://data-transfer-63111-default-rtdb.firebaseio.com",
+
+    projectId:
+    "data-transfer-63111",
+
+    storageBucket:
+    "data-transfer-63111.firebasestorage.app",
+
+    messagingSenderId:
+    "1031425742783",
+
+    appId:
+    "1:1031425742783:web:b6d7753fa2e2fa212cb30a",
+
+    measurementId:
+    "G-DNXM9KZKGM"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+let currentChatUid = null;
+
+let unsubscribeMessages = null;
+
+let unsubscribeRequests = null;
+
+let unsubscribeFriends = null;
+
+let timerSeconds = 25 * 60;
+
+let timerInterval = null;
+
+let timerRunning = false;
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+function showAuthError(message){
+
+    document.getElementById("authError").innerHTML =
+    `<div class="auth-error">${escapeHTML(message)}</div>`;
+
+}
+
+
+function clearAuthError(){
+
+    document.getElementById("authError").innerHTML = "";
+
+}
+
+
+function firebaseError(error){
+
+    const code = error?.code || "";
+
+    const messages = {
+
+        "auth/invalid-credential":
+        "Incorrect email or password.",
+
+        "auth/invalid-login-credentials":
+        "Incorrect email or password.",
+
+        "auth/email-already-in-use":
+        "This email is already registered.",
+
+        "auth/weak-password":
+        "Password must be at least 6 characters.",
+
+        "auth/invalid-email":
+        "Please enter a valid email.",
+
+        "auth/popup-closed-by-user":
+        "Google login was cancelled.",
+
+        "permission-denied":
+        "Firebase permission denied. Check Firestore Rules."
+
+    };
+
+    return messages[code] ||
+        error?.message ||
+        "Something went wrong.";
+
+}
+
+
+/* =====================================================
+   AUTH UI
+===================================================== */
+
+window.showSignup = function(){
+
+    clearAuthError();
+
+    document
+        .getElementById("loginForm")
+        .classList.add("hidden");
+
+    document
+        .getElementById("signupForm")
+        .classList.remove("hidden");
+
+};
+
+
+window.showLogin = function(){
+
+    clearAuthError();
+
+    document
+        .getElementById("signupForm")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginForm")
+        .classList.remove("hidden");
+
+};
+
+
+/* =====================================================
+   EMAIL SIGNUP
+===================================================== */
+
+window.signupEmail = async function(){
+
+    clearAuthError();
+
+    const name =
+        document.getElementById("signupName").value.trim();
+
+    const studentClass =
+        document.getElementById("signupClass").value;
+
+    const email =
+        document.getElementById("signupEmail").value.trim().toLowerCase();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const confirm =
+        document.getElementById("signupConfirm").value;
+
+
+    if(!name){
+
+        showAuthError("Please enter your name.");
+        return;
+
+    }
+
+
+    if(!studentClass){
+
+        showAuthError("Please select your class.");
+        return;
+
+    }
+
+
+    if(!email){
+
+        showAuthError("Please enter your email.");
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        showAuthError(
+            "Password must be at least 6 characters."
+        );
+
+        return;
+
+    }
+
+
+    if(password !== confirm){
+
+        showAuthError(
+            "Passwords do not match."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const credential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        await updateProfile(
+            credential.user,
+            {
+                displayName:name
+            }
+        );
+
+
+        await setDoc(
+            doc(db,"users",credential.user.uid),
+            {
+
+                uid:credential.user.uid,
+
+                name:name,
+
+                nameLower:name.toLowerCase(),
+
+                email:email,
+
+                phone:"",
+
+                class:studentClass,
+
+                createdAt:serverTimestamp()
+
+            }
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showAuthError(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   EMAIL LOGIN
+===================================================== */
+
+window.loginEmail = async function(){
+
+    clearAuthError();
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+
+    if(!email || !password){
+
+        showAuthError(
+            "Enter your email and password."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showAuthError(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   GOOGLE
+===================================================== */
+
+window.loginGoogle = async function(){
+
+    clearAuthError();
+
+    try{
+
+        const provider =
+            new GoogleAuthProvider();
+
+        const result =
+            await signInWithPopup(
+                auth,
+                provider
+            );
+
+
+        await ensureUserDocument(
+            result.user
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showAuthError(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   USER DOCUMENT
+===================================================== */
+
+async function ensureUserDocument(
+    firebaseUser,
+    extraData={}
+){
+
+    const userRef =
+        doc(
+            db,
+            "users",
+            firebaseUser.uid
+        );
+
+    const snapshot =
+        await getDoc(userRef);
+
+
+    if(!snapshot.exists()){
+
+        const name =
+            firebaseUser.displayName ||
+            "Student";
+
+        await setDoc(
+            userRef,
+            {
+
+                uid:firebaseUser.uid,
+
+                name:name,
+
+                nameLower:name.toLowerCase(),
+
+                email:
+                    firebaseUser.email || "",
+
+                phone:
+                    firebaseUser.phoneNumber || "",
+
+                class:
+                    extraData.class || "",
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async(user)=>{
+
+        if(user){
+
+            document
+                .getElementById("authScreen")
+                .classList.add("hidden");
+
+            document
+                .getElementById("app")
+                .classList.remove("hidden");
+
+
+            try{
+
+                await ensureUserDocument(user);
+
+                await loadProfile();
+
+                loadTasks();
+
+                loadSubjects();
+
+                startFriendListeners();
+
+            }
+            catch(error){
+
+                console.error(error);
+
+            }
+
+        }
+        else{
+
+            document
+                .getElementById("authScreen")
+                .classList.remove("hidden");
+
+            document
+                .getElementById("app")
+                .classList.add("hidden");
+
+            stopFriendListeners();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+window.logout = async function(){
+
+    try{
+
+        await signOut(auth);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+};
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+window.showPage = function(
+    pageId,
+    button
+){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+
+    const page =
+        document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+
+    if(button){
+        button.classList.add("active");
+    }
+
+};
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+async function loadProfile(){
+
+    const user = auth.currentUser;
+
+    if(!user)return;
+
+
+    const snap =
+        await getDoc(
+            doc(
+                db,
+                "users",
+                user.uid
+            )
+        );
+
+
+    if(!snap.exists())return;
+
+
+    const data = snap.data();
+
+
+    document.getElementById("topName")
+        .textContent =
+        data.name || "Student";
+
+
+    document.getElementById("topAvatar")
+        .textContent =
+        (data.name || "S")
+            .charAt(0)
+            .toUpperCase();
+
+
+    document.getElementById("profileName")
+        .textContent =
+        data.name || "—";
+
+
+    document.getElementById("profileEmail")
+        .textContent =
+        data.email || "—";
+
+
+    document.getElementById("profileClass")
+        .textContent =
+        data.class || "Not selected";
+
+}
+
+
+/* =====================================================
+   SUBJECTS
+===================================================== */
+
+function loadSubjects(){
+
+    const grid =
+        document.getElementById("subjectGrid");
+
+
+    const subjects = [
+
+        "📐 Mathematics",
+
+        "📖 English",
+
+        "🔬 Physics",
+
+        "🧪 Chemistry",
+
+        "🧬 Biology",
+
+        "📝 Urdu",
+
+        "☪️ Islamiat",
+
+        "💻 Computer",
+
+        "🌐 Sindhi",
+
+        "📚 Pakistan Studies"
+
+    ];
+
+
+    grid.innerHTML =
+        subjects.map(subject=>`
+
+            <div class="subject-card">
+                ${subject}
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =====================================================
+   TASKS
+===================================================== */
+
+function taskKey(){
+
+    const user = auth.currentUser;
+
+    return user
+        ? `studyhub_tasks_${user.uid}`
+        : "studyhub_tasks";
+
+}
+
+
+function getTasks(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(taskKey()) || "[]"
+        );
+
+    }
+    catch{
+
+        return [];
+
+    }
+
+}
+
+
+function saveTasks(tasks){
+
+    localStorage.setItem(
+        taskKey(),
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+function loadTasks(){
+
+    const tasks = getTasks();
+
+    renderTasks(tasks);
+
+}
+
+
+function renderTasks(tasks){
+
+    const list =
+        document.getElementById("taskList");
+
+
+    document.getElementById("taskCount")
+        .textContent =
+        tasks.length;
+
+
+    if(tasks.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                No tasks yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        tasks.map((task,index)=>`
+
+            <div
+                class="task ${task.done ? "done" : ""}"
+            >
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(task.text)}
+                    </strong>
+
+                    <div class="person-email">
+                        ${escapeHTML(task.subject)}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <button
+                        class="small-btn"
+                        onclick="toggleTask(${index})"
+                    >
+                        ${task.done ? "Undo" : "Done"}
+                    </button>
+
+                    <button
+                        class="delete-task"
+                        onclick="deleteTask(${index})"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+window.addTask = function(){
+
+    const input =
+        document.getElementById("taskInput");
+
+    const subject =
+        document.getElementById("taskSubject").value;
+
+    const text =
+        input.value.trim();
+
+
+    if(!text)return;
+
+
+    const tasks = getTasks();
+
+
+    tasks.push({
+
+        text:text,
+
+        subject:subject,
+
+        done:false
+
+    });
+
+
+    saveTasks(tasks);
+
+    input.value = "";
+
+    renderTasks(tasks);
+
+};
+
+
+window.toggleTask = function(index){
+
+    const tasks = getTasks();
+
+    if(!tasks[index])return;
+
+    tasks[index].done =
+        !tasks[index].done;
+
+    saveTasks(tasks);
+
+    renderTasks(tasks);
+
+};
+
+
+window.deleteTask = function(index){
+
+    const tasks = getTasks();
+
+    tasks.splice(index,1);
+
+    saveTasks(tasks);
+
+    renderTasks(tasks);
+
+};
+
+
+/* =====================================================
+   FRIEND STATUS
+===================================================== */
+
+function createFriendshipId(uid1,uid2){
+
+    return [uid1,uid2]
+        .sort()
+        .join("_");
+
+}
+
+
+async function getFriendStatus(
+    myUid,
+    otherUid
+){
+
+    const friendshipId =
+        createFriendshipId(
+            myUid,
+            otherUid
+        );
+
+
+    const friendship =
+        await getDoc(
+            doc(
+                db,
+                "friendships",
+                friendshipId
+            )
+        );
+
+
+    if(friendship.exists()){
+
+        return "friends";
+
+    }
+
+
+    const outgoing =
+        await getDoc(
+            doc(
+                db,
+                "friendRequests",
+                `${myUid}_${otherUid}`
+            )
+        );
+
+
+    if(
+        outgoing.exists() &&
+        outgoing.data().status === "pending"
+    ){
+
+        return "outgoing";
+
+    }
+
+
+    const incoming =
+        await getDoc(
+            doc(
+                db,
+                "friendRequests",
+                `${otherUid}_${myUid}`
+            )
+        );
+
+
+    if(
+        incoming.exists() &&
+        incoming.data().status === "pending"
+    ){
+
+        return "incoming";
+
+    }
+
+
+    return "none";
+
+}
+
+
+/* =====================================================
+   SEARCH STUDENTS
 ===================================================== */
 
 window.searchStudents = async function(){
 
-    const input = document.getElementById("friendSearchInput");
-    const results = document.getElementById("searchResults");
+    const input =
+        document.getElementById(
+            "friendSearchInput"
+        );
 
-    const term = input.value.trim().toLowerCase();
+    const results =
+        document.getElementById(
+            "searchResults"
+        );
+
+
+    const term =
+        input.value.trim().toLowerCase();
+
 
     if(!term){
 
@@ -18,20 +2247,26 @@ window.searchStudents = async function(){
         `;
 
         return;
+
     }
 
-    const currentUser = auth.currentUser;
+
+    const currentUser =
+        auth.currentUser;
+
 
     if(!currentUser){
 
         results.innerHTML = `
             <div class="error">
-                ❌ You are not logged in.
+                You are not logged in.
             </div>
         `;
 
         return;
+
     }
+
 
     results.innerHTML = `
         <div class="empty">
@@ -39,111 +2274,139 @@ window.searchStudents = async function(){
         </div>
     `;
 
+
     try{
 
-        /*
-         * Instead of requiring an exact Firestore query,
-         * get the user profiles and compare normalized
-         * name/email values in JavaScript.
-         */
+        const usersSnapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "users"
+                )
+            );
 
-        const usersSnapshot = await getDocs(
-            collection(db, "users")
-        );
 
         const students = [];
 
-        usersSnapshot.forEach((userDoc) => {
 
-            const data = userDoc.data();
+        usersSnapshot.forEach(
+            userDoc=>{
 
-            // Never show yourself
-            if(
-                data.uid === currentUser.uid ||
-                userDoc.id === currentUser.uid
-            ){
-                return;
+                const data =
+                    userDoc.data();
+
+
+                if(
+                    userDoc.id ===
+                    currentUser.uid
+                ){
+
+                    return;
+
+                }
+
+
+                const name =
+                    String(
+                        data.name || ""
+                    ).trim();
+
+
+                const email =
+                    String(
+                        data.email || ""
+                    ).trim();
+
+
+                const nameLower =
+                    String(
+                        data.nameLower ||
+                        name
+                    )
+                    .trim()
+                    .toLowerCase();
+
+
+                const emailLower =
+                    email.toLowerCase();
+
+
+                if(
+                    nameLower.includes(term) ||
+                    emailLower.includes(term)
+                ){
+
+                    students.push({
+
+                        ...data,
+
+                        uid:
+                            data.uid ||
+                            userDoc.id,
+
+                        name:
+                            name ||
+                            "Student",
+
+                        email:
+                            email ||
+                            ""
+
+                    });
+
+                }
+
             }
-
-            const name = String(
-                data.name || ""
-            ).trim();
-
-            const email = String(
-                data.email || ""
-            ).trim();
-
-            const nameLower = String(
-                data.nameLower || name
-            ).trim().toLowerCase();
-
-            const emailLower = email.toLowerCase();
-
-            /*
-             * Search by:
-             * - exact email
-             * - exact name
-             * - partial name
-             * - partial email
-             */
-
-            if(
-                nameLower.includes(term) ||
-                emailLower.includes(term)
-            ){
-
-                students.push({
-                    id: userDoc.id,
-                    ...data,
-
-                    // Make sure UID always exists
-                    uid: data.uid || userDoc.id,
-
-                    // Make sure name/email are usable
-                    name: name || "Student",
-                    email: email || ""
-                });
-
-            }
-
-        });
+        );
 
 
-        if(students.length === 0){
+        if(
+            students.length === 0
+        ){
 
             results.innerHTML = `
                 <div class="empty">
                     ❌ No student found.
                     <br><br>
-                    Make sure you entered the correct name or email.
+                    Try the exact name or email.
                 </div>
             `;
 
             return;
+
         }
 
 
         results.innerHTML = "";
 
 
-        for(const student of students){
+        for(
+            const student
+            of students
+        ){
 
-            /*
-             * Get current friendship/request status.
-             */
-            const status = await getFriendStatus(
-                currentUser.uid,
-                student.uid
-            );
+            const status =
+                await getFriendStatus(
+                    currentUser.uid,
+                    student.uid
+                );
 
 
-            const div = document.createElement("div");
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-            div.className = "person-card";
+
+            div.className =
+                "person-card";
 
 
             const initial =
-                (student.name || "S")
+                (
+                    student.name ||
+                    "S"
+                )
                 .charAt(0)
                 .toUpperCase();
 
@@ -151,44 +2414,53 @@ window.searchStudents = async function(){
             let actionHTML = "";
 
 
-            if(status === "friends"){
+            if(
+                status === "friends"
+            ){
 
                 actionHTML = `
+
                     <button
                         class="small-btn chat-btn"
-                        onclick="openChat('${student.uid}')">
-
+                        onclick="openChat('${student.uid}')"
+                    >
                         💬 Chat
-
                     </button>
+
                 `;
 
             }
 
-            else if(status === "outgoing"){
+            else if(
+                status === "outgoing"
+            ){
 
                 actionHTML = `
+
                     <button
                         class="small-btn pending-btn"
-                        disabled>
-
+                        disabled
+                    >
                         ⏳ Request Sent
-
                     </button>
+
                 `;
 
             }
 
-            else if(status === "incoming"){
+            else if(
+                status === "incoming"
+            ){
 
                 actionHTML = `
+
                     <button
                         class="small-btn accept-btn"
-                        onclick="acceptIncomingByUser('${student.uid}')">
-
+                        onclick="acceptIncomingByUser('${student.uid}')"
+                    >
                         ✅ Accept Request
-
                     </button>
+
                 `;
 
             }
@@ -196,13 +2468,14 @@ window.searchStudents = async function(){
             else{
 
                 actionHTML = `
+
                     <button
                         class="small-btn"
-                        onclick="sendFriendRequest('${student.uid}')">
-
+                        onclick="sendFriendRequest('${student.uid}')"
+                    >
                         ➕ Add Friend
-
                     </button>
+
                 `;
 
             }
@@ -227,7 +2500,10 @@ window.searchStudents = async function(){
                         </div>
 
                         <div class="person-email">
-                            ${escapeHTML(student.class || "Class not selected")}
+                            ${escapeHTML(
+                                student.class ||
+                                "Class not selected"
+                            )}
                         </div>
 
                     </div>
@@ -246,7 +2522,6 @@ window.searchStudents = async function(){
         }
 
     }
-
     catch(error){
 
         console.error(
@@ -257,10 +2532,1062 @@ window.searchStudents = async function(){
 
         results.innerHTML = `
             <div class="error">
-                ❌ ${escapeHTML(firebaseError(error))}
+                ❌ ${escapeHTML(
+                    firebaseError(error)
+                )}
             </div>
         `;
 
     }
 
 };
+
+
+/* =====================================================
+   SEND FRIEND REQUEST
+===================================================== */
+
+window.sendFriendRequest =
+async function(toUid){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    try{
+
+        const requestId =
+            `${user.uid}_${toUid}`;
+
+
+        await setDoc(
+            doc(
+                db,
+                "friendRequests",
+                requestId
+            ),
+            {
+
+                fromUid:user.uid,
+
+                toUid:toUid,
+
+                status:"pending",
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        alert(
+            "Friend request sent!"
+        );
+
+
+        searchStudents();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   REQUEST LISTENER
+===================================================== */
+
+function startFriendListeners(){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    listenToRequests();
+
+    listenToFriends();
+
+}
+
+
+function stopFriendListeners(){
+
+    if(unsubscribeRequests){
+
+        unsubscribeRequests();
+
+        unsubscribeRequests = null;
+
+    }
+
+
+    if(unsubscribeFriends){
+
+        unsubscribeFriends();
+
+        unsubscribeFriends = null;
+
+    }
+
+
+    if(unsubscribeMessages){
+
+        unsubscribeMessages();
+
+        unsubscribeMessages = null;
+
+    }
+
+}
+
+
+function listenToRequests(){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    if(unsubscribeRequests){
+
+        unsubscribeRequests();
+
+    }
+
+
+    const q =
+        query(
+            collection(
+                db,
+                "friendRequests"
+            ),
+            where(
+                "toUid",
+                "==",
+                user.uid
+            ),
+            where(
+                "status",
+                "==",
+                "pending"
+            )
+        );
+
+
+    unsubscribeRequests =
+        onSnapshot(
+            q,
+            async(snapshot)=>{
+
+                const list =
+                    document.getElementById(
+                        "requestsList"
+                    );
+
+
+                if(snapshot.empty){
+
+                    list.innerHTML = `
+                        <div class="empty">
+                            No pending requests.
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                list.innerHTML = "";
+
+
+                for(
+                    const request
+                    of snapshot.docs
+                ){
+
+                    const data =
+                        request.data();
+
+
+                    const userSnap =
+                        await getDoc(
+                            doc(
+                                db,
+                                "users",
+                                data.fromUid
+                            )
+                        );
+
+
+                    const sender =
+                        userSnap.exists()
+                        ? userSnap.data()
+                        : {
+                            name:"Student",
+                            email:""
+                        };
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "person-card";
+
+
+                    div.innerHTML = `
+
+                        <div class="person-info">
+
+                            <div class="avatar">
+                                ${escapeHTML(
+                                    (
+                                        sender.name ||
+                                        "S"
+                                    )
+                                    .charAt(0)
+                                    .toUpperCase()
+                                )}
+                            </div>
+
+                            <div>
+
+                                <div class="person-name">
+                                    ${escapeHTML(
+                                        sender.name ||
+                                        "Student"
+                                    )}
+                                </div>
+
+                                <div class="person-email">
+                                    ${escapeHTML(
+                                        sender.email ||
+                                        ""
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <button
+                                class="small-btn accept-btn"
+                                onclick="acceptRequest(
+                                    '${request.id}',
+                                    '${data.fromUid}'
+                                )"
+                            >
+                                Accept
+                            </button>
+
+                            <button
+                                class="small-btn danger-btn"
+                                onclick="rejectRequest('${request.id}')"
+                            >
+                                Reject
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    list.appendChild(div);
+
+                }
+
+            },
+            error=>{
+
+                console.error(
+                    "Request listener:",
+                    error
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ACCEPT REQUEST
+===================================================== */
+
+window.acceptRequest =
+async function(
+    requestId,
+    fromUid
+){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    try{
+
+        const friendshipId =
+            createFriendshipId(
+                user.uid,
+                fromUid
+            );
+
+
+        await setDoc(
+            doc(
+                db,
+                "friendships",
+                friendshipId
+            ),
+            {
+
+                users:[
+                    user.uid,
+                    fromUid
+                ],
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        await updateDoc(
+            doc(
+                db,
+                "friendRequests",
+                requestId
+            ),
+            {
+                status:"accepted"
+            }
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   ACCEPT FROM SEARCH
+===================================================== */
+
+window.acceptIncomingByUser =
+async function(fromUid){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    const requestId =
+        `${fromUid}_${user.uid}`;
+
+
+    await acceptRequest(
+        requestId,
+        fromUid
+    );
+
+
+    searchStudents();
+
+};
+
+
+/* =====================================================
+   REJECT
+===================================================== */
+
+window.rejectRequest =
+async function(requestId){
+
+    try{
+
+        await deleteDoc(
+            doc(
+                db,
+                "friendRequests",
+                requestId
+            )
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+};
+
+
+/* =====================================================
+   FRIENDS LIST
+===================================================== */
+
+function listenToFriends(){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    if(unsubscribeFriends){
+
+        unsubscribeFriends();
+
+    }
+
+
+    const q =
+        query(
+            collection(
+                db,
+                "friendships"
+            ),
+            where(
+                "users",
+                "array-contains",
+                user.uid
+            )
+        );
+
+
+    unsubscribeFriends =
+        onSnapshot(
+            q,
+            async(snapshot)=>{
+
+                const list =
+                    document.getElementById(
+                        "friendsList"
+                    );
+
+
+                document.getElementById(
+                    "friendCount"
+                )
+                .textContent =
+                    snapshot.size;
+
+
+                if(snapshot.empty){
+
+                    list.innerHTML = `
+                        <div class="empty">
+                            You don't have any friends yet.
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                list.innerHTML = "";
+
+
+                for(
+                    const friendship
+                    of snapshot.docs
+                ){
+
+                    const data =
+                        friendship.data();
+
+
+                    const otherUid =
+                        data.users.find(
+                            uid =>
+                                uid !== user.uid
+                        );
+
+
+                    if(!otherUid)continue;
+
+
+                    const userSnap =
+                        await getDoc(
+                            doc(
+                                db,
+                                "users",
+                                otherUid
+                            )
+                        );
+
+
+                    const friend =
+                        userSnap.exists()
+                        ? userSnap.data()
+                        : {
+                            name:"Student",
+                            email:""
+                        };
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "person-card";
+
+
+                    div.innerHTML = `
+
+                        <div class="person-info">
+
+                            <div class="avatar">
+                                ${escapeHTML(
+                                    (
+                                        friend.name ||
+                                        "S"
+                                    )
+                                    .charAt(0)
+                                    .toUpperCase()
+                                )}
+                            </div>
+
+                            <div>
+
+                                <div class="person-name">
+                                    ${escapeHTML(
+                                        friend.name ||
+                                        "Student"
+                                    )}
+                                </div>
+
+                                <div class="person-email">
+                                    ${escapeHTML(
+                                        friend.email ||
+                                        ""
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <button
+                                class="small-btn chat-btn"
+                                onclick="openChat('${otherUid}')"
+                            >
+                                💬 Chat
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    list.appendChild(div);
+
+                }
+
+            },
+            error=>{
+
+                console.error(
+                    "Friends listener:",
+                    error
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   CHAT ID
+===================================================== */
+
+function createChatId(
+    uid1,
+    uid2
+){
+
+    return [
+        uid1,
+        uid2
+    ]
+    .sort()
+    .join("_");
+
+}
+
+
+/* =====================================================
+   OPEN CHAT
+===================================================== */
+
+window.openChat =
+async function(friendUid){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    currentChatUid =
+        friendUid;
+
+
+    const friendSnap =
+        await getDoc(
+            doc(
+                db,
+                "users",
+                friendUid
+            )
+        );
+
+
+    const friend =
+        friendSnap.exists()
+        ? friendSnap.data()
+        : {
+            name:"Student"
+        };
+
+
+    document.getElementById(
+        "chatName"
+    )
+    .textContent =
+        friend.name || "Student";
+
+
+    document.getElementById(
+        "chatBox"
+    )
+    .classList.remove("hidden");
+
+
+    listenToChat(
+        friendUid
+    );
+
+
+    setTimeout(
+        ()=>{
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .focus();
+        },
+        100
+    );
+
+};
+
+
+/* =====================================================
+   CLOSE CHAT
+===================================================== */
+
+window.closeChat =
+function(){
+
+    currentChatUid = null;
+
+
+    if(unsubscribeMessages){
+
+        unsubscribeMessages();
+
+        unsubscribeMessages = null;
+
+    }
+
+
+    document.getElementById(
+        "chatBox"
+    )
+    .classList.add("hidden");
+
+};
+
+
+/* =====================================================
+   CHAT LISTENER
+===================================================== */
+
+function listenToChat(friendUid){
+
+    const user =
+        auth.currentUser;
+
+    if(!user)return;
+
+
+    if(unsubscribeMessages){
+
+        unsubscribeMessages();
+
+    }
+
+
+    const chatId =
+        createChatId(
+            user.uid,
+            friendUid
+        );
+
+
+    const q =
+        query(
+            collection(
+                db,
+                "chats",
+                chatId,
+                "messages"
+            ),
+            orderBy(
+                "createdAt",
+                "asc"
+            ),
+            limit(200)
+        );
+
+
+    unsubscribeMessages =
+        onSnapshot(
+            q,
+            snapshot=>{
+
+                const messages =
+                    document.getElementById(
+                        "messages"
+                    );
+
+
+                messages.innerHTML = "";
+
+
+                snapshot.forEach(
+                    messageDoc=>{
+
+                        const data =
+                            messageDoc.data();
+
+
+                        const div =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        div.className =
+                            "message " +
+                            (
+                                data.senderUid ===
+                                user.uid
+                                ? "mine"
+                                : "theirs"
+                            );
+
+
+                        div.textContent =
+                            data.text || "";
+
+
+                        messages.appendChild(div);
+
+                    }
+                );
+
+
+                messages.scrollTop =
+                    messages.scrollHeight;
+
+            },
+            error=>{
+
+                console.error(
+                    "Chat listener:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "messages"
+                ).innerHTML = `
+                    <div class="error">
+                        Unable to load chat.
+                    </div>
+                `;
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   SEND MESSAGE
+===================================================== */
+
+window.sendMessage =
+async function(event){
+
+    event.preventDefault();
+
+
+    const user =
+        auth.currentUser;
+
+
+    if(
+        !user ||
+        !currentChatUid
+    ){
+
+        return;
+
+    }
+
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text)return;
+
+
+    try{
+
+        const chatId =
+            createChatId(
+                user.uid,
+                currentChatUid
+            );
+
+
+        await addDoc(
+            collection(
+                db,
+                "chats",
+                chatId,
+                "messages"
+            ),
+            {
+
+                senderUid:
+                    user.uid,
+
+                receiverUid:
+                    currentChatUid,
+
+                text:text,
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        input.value = "";
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   FOCUS TIMER
+===================================================== */
+
+function updateTimer(){
+
+    const minutes =
+        Math.floor(
+            timerSeconds / 60
+        )
+        .toString()
+        .padStart(2,"0");
+
+
+    const seconds =
+        (
+            timerSeconds % 60
+        )
+        .toString()
+        .padStart(2,"0");
+
+
+    document.getElementById(
+        "timer"
+    )
+    .textContent =
+        `${minutes}:${seconds}`;
+
+}
+
+
+window.startTimer =
+function(){
+
+    if(timerRunning)return;
+
+    timerRunning = true;
+
+
+    timerInterval =
+        setInterval(
+            ()=>{
+
+                if(timerSeconds <= 0){
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    timerRunning = false;
+
+                    alert(
+                        "Focus session complete! 🎉"
+                    );
+
+                    return;
+
+                }
+
+
+                timerSeconds--;
+
+                updateTimer();
+
+
+                if(
+                    auth.currentUser
+                ){
+
+                    const used =
+                        Number(
+                            localStorage.getItem(
+                                `focus_${auth.currentUser.uid}`
+                            ) || 0
+                        );
+
+
+                    localStorage.setItem(
+                        `focus_${auth.currentUser.uid}`,
+                        used + 1
+                    );
+
+
+                    document.getElementById(
+                        "focusCount"
+                    )
+                    .textContent =
+                        Math.floor(
+                            (used + 1) / 60
+                        );
+
+                }
+
+            },
+            1000
+        );
+
+};
+
+
+window.pauseTimer =
+function(){
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerRunning = false;
+
+};
+
+
+window.resetTimer =
+function(){
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerRunning = false;
+
+    timerSeconds = 25 * 60;
+
+    updateTimer();
+
+};
+
+
+/* =====================================================
+   INITIAL UI
+===================================================== */
+
+updateTimer();
+
+</script>
+
+</body>
+</html>
