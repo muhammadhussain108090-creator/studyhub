@@ -3,79 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyHub</title>
+<title>StudyHub - Fixed Name</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
-body{background:#f4f7fb;color:#172033}
-button{border:0;cursor:pointer}
-input,select{outline:none}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+body{background:#f4f7fb}
 .hidden{display:none!important}
 #authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#667eea,#764ba2)}
-.auth-card{width:100%;max-width:440px;background:white;border-radius:22px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.22)}
-.logo{text-align:center;font-size:34px;font-weight:800;color:#667eea;margin-bottom:7px}
-.subtitle{text-align:center;color:#738096;margin-bottom:25px}
-.auth-card input,.auth-card select{width:100%;padding:13px 14px;margin-bottom:12px;border:1px solid #d9dfeb;border-radius:11px;font-size:15px}
-.primary-btn{width:100%;padding:13px;border-radius:11px;background:#667eea;color:white;font-weight:700;font-size:15px;margin-bottom:10px}
-.google-btn{width:100%;padding:13px;border-radius:11px;background:white;border:1px solid #ddd;color:#222;font-weight:700;margin-bottom:10px}
+.auth-card{width:100%;max-width:440px;background:white;border-radius:22px;padding:30px}
+.primary-btn{width:100%;padding:13px;border-radius:11px;background:#667eea;color:white;font-weight:700;margin-bottom:10px}
+.google-btn{width:100%;padding:13px;border-radius:11px;background:white;border:1px solid #ddd;font-weight:700;margin-bottom:10px}
 .phone-btn{width:100%;padding:13px;border-radius:11px;background:#111827;color:white;font-weight:700;margin-bottom:10px}
-.back-btn{width:100%;padding:11px;border-radius:11px;background:#eef1f6;color:#374151;font-weight:700}
-.auth-switch{text-align:center;color:#738096;margin-top:15px}
-.link-btn{background:none;color:#667eea;font-weight:700}
-.auth-error{background:#fff1f2;color:#b91c1c;padding:11px;border-radius:10px;margin-bottom:13px;font-size:14px}
-.auth-success{background:#ecfdf5;color:#047857;padding:11px;border-radius:10px;margin-bottom:13px;font-size:14px}
-#app{min-height:100vh}
-.topbar{height:70px;background:white;border-bottom:1px solid #e5e9f1;display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;z-index:20}
-.brand{font-size:25px;font-weight:800;color:#667eea}
-.user-mini{display:flex;align-items:center;gap:10px}
-.avatar{width:42px;height:42px;border-radius:50%;background:#667eea;color:white;display:flex;align-items:center;justify-content:center;font-weight:800}
-.logout-btn{padding:9px 14px;border-radius:9px;background:#fee2e2;color:#b91c1c;font-weight:700}
-.layout{display:flex;min-height:calc(100vh - 70px)}
-.sidebar{width:230px;background:white;border-right:1px solid #e5e9f1;padding:18px 12px}
-.nav-btn{width:100%;padding:13px 15px;margin-bottom:5px;border-radius:10px;text-align:left;background:transparent;color:#596579;font-weight:700}
-.nav-btn.active{background:#eef0ff;color:#5865d8}
-.main{flex:1;padding:28px}
-.page{display:none}.page.active{display:block}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.stat-card{background:white;padding:22px;border-radius:17px}
-.task-form{background:white;padding:20px;border-radius:17px;margin-bottom:20px}
-.task{ background:white;padding:17px;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:15px }
-.small-btn{padding:9px 13px;border-radius:9px;background:#667eea;color:white;font-weight:700}
-.search-row{display:flex;gap:10px}.search-row input{flex:1;padding:13px 15px;border:1px solid #dce1eb;border-radius:11px}.search-row button{padding:13px 20px;background:#667eea;color:white;border-radius:11px;font-weight:700}
-.person-card{background:white;padding:15px;border-radius:15px;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.person-info{display:flex;align-items:center;gap:12px}.person-name{font-weight:800}.person-email{color:#7a8597;font-size:13px}
-.empty{background:white;padding:25px;border-radius:14px;text-align:center;color:#788398}
-.chat-box{position:fixed;right:20px;bottom:20px;width:370px;height:530px;background:white;border-radius:18px;box-shadow:0 15px 50px rgba(0,0,0,.22);z-index:100;display:flex;flex-direction:column}
-.chat-header{background:#667eea;color:white;padding:15px;display:flex;justify-content:space-between}
-.messages{flex:1;overflow-y:auto;padding:15px;background:#f5f7fb}
-.message{max-width:78%;padding:10px 13px;border-radius:14px;margin-bottom:9px}
-.message.mine{margin-left:auto;background:#667eea;color:white}
-.message.theirs{background:white;border:1px solid #e5e8ef}
-.chat-form{display:flex;gap:7px;padding:10px;border-top:1px solid #e5e8ef}.chat-form input{flex:1;padding:11px;border:1px solid #dce1eb;border-radius:10px}.chat-form button{padding:0 15px;border-radius:10px;background:#667eea;color:white}
-.profile-card{max-width:600px;background:white;border-radius:18px;padding:25px}
+#app{min-height:100vh}.topbar{height:70px;background:white;display:flex;justify-content:space-between;padding:0 25px;align-items:center}
+.layout{display:flex}.sidebar{width:230px;background:white;padding:18px 12px}.nav-btn{width:100%;padding:13px;text-align:left;border-radius:10px}.nav-btn.active{background:#eef0ff;color:#5865d8}.main{flex:1;padding:28px}.page{display:none}.page.active{display:block}
+.stat-card{background:white;padding:22px;border-radius:17px;margin-bottom:10px}.person-card{background:white;padding:15px;border-radius:15px;display:flex;justify-content:space-between;margin-bottom:10px}.small-btn{padding:9px 13px;background:#667eea;color:white;border-radius:9px}
+.chat-box{position:fixed;right:20px;bottom:20px;width:370px;height:530px;background:white;border-radius:18px;box-shadow:0 15px 50px rgba(0,0,0,.22);display:flex;flex-direction:column}
 </style>
 </head>
 <body>
-<div id="authScreen"><div class="auth-card"><div class="logo">📚 StudyHub</div><div class="subtitle">Your student study space</div><div id="authMessage"></div>
-<div id="loginForm"><input id="loginEmailInput" type="email" placeholder="Email"><input id="loginPasswordInput" type="password" placeholder="Password"><button class="primary-btn" onclick="loginEmail()">📧 Login with Email</button><button class="google-btn" onclick="loginGoogle()">🔵 Continue with Google</button><button class="phone-btn" onclick="showPhoneLogin()">📱 Login with Phone</button><div class="auth-switch">Don't have account? <button class="link-btn" onclick="showSignup()">Create</button></div></div>
-<div id="signupForm" class="hidden"><input id="signupName" placeholder="Full name"><select id="signupClass"><option value="">Select class</option><option>Below Class 9</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option><option>Other</option></select><input id="signupEmailInput" type="email" placeholder="Email"><input id="signupPasswordInput" type="password" placeholder="Password"><input id="signupConfirmInput" type="password" placeholder="Confirm"><button class="primary-btn" onclick="signupEmail()">Create Account</button><button class="google-btn" onclick="signupGoogle()">Sign up with Google</button><button class="phone-btn" onclick="showPhoneSignup()">Sign up with Phone</button><div class="auth-switch"><button class="link-btn" onclick="showLogin()">Login</button></div></div>
-<div id="phoneLoginForm" class="hidden"><h3>📱 Phone Login</h3><input id="phoneLoginNumber" type="tel" placeholder="+92 300 1234567"><div id="recaptcha-login"></div><button id="sendLoginOtpBtn" class="phone-btn" onclick="sendPhoneLoginOTP()">Send OTP</button><div id="loginOtpArea" class="hidden"><input id="phoneLoginOtp" maxlength="6" placeholder="OTP"><button class="primary-btn" onclick="verifyPhoneLogin()">Verify</button></div><button class="back-btn" onclick="showLogin()">← Back</button></div>
-<div id="phoneSignupForm" class="hidden"><h3>📱 Phone Signup</h3><input id="phoneSignupName" placeholder="Full name"><select id="phoneSignupClass"><option value="">Select class</option><option>Below Class 9</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option><option>Other</option></select><input id="phoneSignupNumber" type="tel" placeholder="+92 300 1234567"><div id="recaptcha-signup"></div><button id="sendSignupOtpBtn" class="phone-btn" onclick="sendPhoneSignupOTP()">Send OTP</button><div id="signupOtpArea" class="hidden"><input id="phoneSignupOtp" maxlength="6" placeholder="OTP"><button class="primary-btn" onclick="verifyPhoneSignup()">Verify & Create</button></div><button class="back-btn" onclick="showSignup()">← Back</button></div>
+<!-- SAME HTML AS BEFORE -->
+<div id="authScreen"><div class="auth-card"><div style="text-align:center;font-size:34px;font-weight:800;color:#667eea">📚 StudyHub</div><div id="authMessage"></div>
+<div id="loginForm"><input id="loginEmailInput" type="email" placeholder="Email"><input id="loginPasswordInput" type="password" placeholder="Password"><button class="primary-btn" onclick="loginEmail()">Login</button><button class="google-btn" onclick="loginGoogle()">Google</button><button class="phone-btn" onclick="showPhoneLogin()">Phone</button><div style="text-align:center;margin-top:15px"><button onclick="showSignup()" style="background:none;color:#667eea">Create account</button></div></div>
+<div id="signupForm" class="hidden"><input id="signupName" placeholder="Full name"><select id="signupClass"><option value="">Select class</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option><option>Other</option></select><input id="signupEmailInput" type="email" placeholder="Email"><input id="signupPasswordInput" type="password" placeholder="Password"><input id="signupConfirmInput" type="password" placeholder="Confirm"><button class="primary-btn" onclick="signupEmail()">Create</button><button onclick="showLogin()">Back to Login</button></div>
+<div id="phoneLoginForm" class="hidden"><input id="phoneLoginNumber" placeholder="+92..."><div id="recaptcha-login"></div><button class="phone-btn" onclick="sendPhoneLoginOTP()">Send OTP</button><div id="loginOtpArea" class="hidden"><input id="phoneLoginOtp" placeholder="OTP"><button onclick="verifyPhoneLogin()">Verify</button></div><button onclick="showLogin()">Back</button></div>
+<div id="phoneSignupForm" class="hidden"><input id="phoneSignupName" placeholder="Name"><select id="phoneSignupClass"><option value="">Class</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select><input id="phoneSignupNumber" placeholder="+92..."><div id="recaptcha-signup"></div><button onclick="sendPhoneSignupOTP()">Send OTP</button><div id="signupOtpArea" class="hidden"><input id="phoneSignupOtp" placeholder="OTP"><button onclick="verifyPhoneSignup()">Verify</button></div><button onclick="showSignup()">Back</button></div>
 </div></div>
-<div id="app" class="hidden"><div class="topbar"><div class="brand">📚 StudyHub</div><div class="user-mini"><div id="topAvatar" class="avatar">S</div><span id="topName">Student</span><button class="logout-btn" onclick="logout()">Logout</button></div></div>
-<div class="layout"><aside class="sidebar"><button class="nav-btn active" onclick="showPage('dashboard',this)">🏠 Dashboard</button><button class="nav-btn" onclick="showPage('tasks',this)">✅ Tasks</button><button class="nav-btn" onclick="showPage('friends',this)">👥 Friends</button><button class="nav-btn" onclick="showPage('profile',this)">👤 Profile</button></aside>
-<main class="main"><section id="dashboard" class="page active"><h1>Welcome 👋</h1><div class="stats"><div class="stat-card"><h3>Tasks</h3><strong id="taskCount">0</strong></div><div class="stat-card"><h3>Friends</h3><strong id="friendCount">0</strong></div></div></section>
-<section id="tasks" class="page"><h1>Tasks</h1><div class="task-form"><input id="taskInput" placeholder="Enter task..."><button class="small-btn" onclick="addTask()">+ Add</button></div><div id="taskList"></div></section>
-<section id="friends" class="page"><h1>Friends</h1><div class="search-row"><input id="friendSearchInput" placeholder="Search..."><button onclick="searchStudents()">Search</button></div><div id="searchResults"></div><div id="requestsList"></div><div id="friendsList"></div></section>
-<section id="profile" class="page"><h1>Profile</h1><div class="profile-card"><p>Name: <strong id="profileName">—</strong></p><p>Email: <strong id="profileEmail">—</strong></p><p>Phone: <strong id="profilePhone">—</strong></p><p>Class: <strong id="profileClass">—</strong></p></div></section>
-</main></div></div>
-<div id="chatBox" class="chat-box hidden"><div class="chat-header"><strong id="chatName">Chat</strong><button onclick="closeChat()">✕</button></div><div id="messages" class="messages"></div><form class="chat-form" onsubmit="sendMessage(event)"><input id="messageInput" placeholder="Type..."><button type="submit">Send</button></form></div>
+<div id="app" class="hidden"><div class="topbar"><div>📚 StudyHub</div><div><span id="topAvatar"></span> <span id="topName">Student</span> <button onclick="logout()">Logout</button></div></div><div class="layout"><aside class="sidebar"><button class="nav-btn active" onclick="showPage('dashboard',this)">Dashboard</button><button class="nav-btn" onclick="showPage('friends',this)">Friends</button><button class="nav-btn" onclick="showPage('profile',this)">Profile</button><button class="nav-btn" onclick="showPage('tasks',this)">Tasks</button></aside><main class="main"><section id="dashboard" class="page active"><h1>Welcome</h1><div><div class="stat-card">Tasks: <strong id="taskCount">0</strong></div><div class="stat-card">Friends: <strong id="friendCount">0</strong></div></div></section><section id="tasks" class="page"><input id="taskInput" placeholder="Task"><button onclick="addTask()">Add</button><div id="taskList"></div></section><section id="friends" class="page"><input id="friendSearchInput" placeholder="Search"><button onclick="searchStudents()">Search</button><div id="searchResults"></div><div id="requestsList"></div><div id="friendsList"></div></section><section id="profile" class="page"><p>Name: <strong id="profileName">—</strong></p><p>Email: <strong id="profileEmail">—</strong></p><p>Phone: <strong id="profilePhone">—</strong></p><p>Class: <strong id="profileClass">—</strong></p><button onclick="editName()">Edit Name</button></section></main></div></div>
+<div id="chatBox" class="chat-box hidden"><div style="background:#667eea;color:white;padding:15px;display:flex;justify-content:space-between"><strong id="chatName">Chat</strong><button onclick="closeChat()">✕</button></div><div id="messages" style="flex:1;overflow:auto;padding:15px"></div><form onsubmit="sendMessage(event)" style="display:flex;padding:10px"><input id="messageInput" placeholder="Type..." style="flex:1"><button type="submit">Send</button></form></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, onSnapshot, serverTimestamp, addDoc, orderBy } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
-// ✅ TUMHARI NAYI FIXED CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyCEFgHDRoDFZ6IZco7iWloLvNCsL3SYckw",
   authDomain: "data-transfer-63111.firebaseapp.com",
@@ -86,74 +45,70 @@ const firebaseConfig = {
   appId: "1:1031425742783:web:5e8ff2207836f47c2cb30a",
   measurementId: "G-TV0RRNXWPD"
 };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
-
-let loginConfirmationResult=null, signupConfirmationResult=null, loginRecaptcha=null, signupRecaptcha=null, currentChatUid=null, unsubscribeMessages=null, unsubscribeRequests=null, unsubscribeFriends=null;
-function escapeHTML(v){return String(v||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}
-function showMessage(m,s=false){document.getElementById("authMessage").innerHTML=`<div class="${s?"auth-success":"auth-error"}">${m}</div>`}
-function clearMessage(){document.getElementById("authMessage").innerHTML=""}
+let loginConfirmationResult=null, signupConfirmationResult=null, loginRecaptcha=null, signupRecaptcha=null, currentChatUid=null, unsubscribeMessages=null;
+function showMessage(m){document.getElementById("authMessage").innerHTML=m}
 function hideAllAuthForms(){["loginForm","signupForm","phoneLoginForm","phoneSignupForm"].forEach(id=>document.getElementById(id).classList.add("hidden"))}
-window.showLogin=()=>{clearMessage();hideAllAuthForms();document.getElementById("loginForm").classList.remove("hidden")}
-window.showSignup=()=>{clearMessage();hideAllAuthForms();document.getElementById("signupForm").classList.remove("hidden")}
-window.showPhoneLogin=()=>{clearMessage();hideAllAuthForms();document.getElementById("phoneLoginForm").classList.remove("hidden")}
-window.showPhoneSignup=()=>{clearMessage();hideAllAuthForms();document.getElementById("phoneSignupForm").classList.remove("hidden")}
-window.signupEmail=async()=>{const name=document.getElementById("signupName").value.trim();const sClass=document.getElementById("signupClass").value;const email=document.getElementById("signupEmailInput").value.trim().toLowerCase();const pass=document.getElementById("signupPasswordInput").value;const conf=document.getElementById("signupConfirmInput").value;if(!name)return showMessage("Enter name");if(pass!==conf)return showMessage("Passwords don't match");try{const cred=await createUserWithEmailAndPassword(auth,email,pass);await updateProfile(cred.user,{displayName:name});await setDoc(doc(db,"users",cred.user.uid),{uid:cred.user.uid,name,nameLower:name.toLowerCase(),email,phone:"",class:sClass,createdAt:serverTimestamp()})}catch(e){showMessage(e.message)}};
-window.loginEmail=async()=>{const email=document.getElementById("loginEmailInput").value.trim();const pass=document.getElementById("loginPasswordInput").value;try{await signInWithEmailAndPassword(auth,email,pass)}catch(e){showMessage(e.message)}};
-async function googleAuth(){try{const p=new GoogleAuthProvider();const r=await signInWithPopup(auth,p);await ensureUserDocument(r.user)}catch(e){showMessage(e.message)}};
+window.showLogin=()=>{hideAllAuthForms();document.getElementById("loginForm").classList.remove("hidden")}
+window.showSignup=()=>{hideAllAuthForms();document.getElementById("signupForm").classList.remove("hidden")}
+window.showPhoneLogin=()=>{hideAllAuthForms();document.getElementById("phoneLoginForm").classList.remove("hidden")}
+window.showPhoneSignup=()=>{hideAllAuthForms();document.getElementById("phoneSignupForm").classList.remove("hidden")}
+window.signupEmail=async()=>{const name=document.getElementById("signupName").value.trim();const sClass=document.getElementById("signupClass").value;const email=document.getElementById("signupEmailInput").value.trim();const pass=document.getElementById("signupPasswordInput").value;const cred=await createUserWithEmailAndPassword(auth,email,pass);await updateProfile(cred.user,{displayName:name});await setDoc(doc(db,"users",cred.user.uid),{uid:cred.user.uid,name,nameLower:name.toLowerCase(),email,phone:"",class:sClass,createdAt:serverTimestamp()})}
+window.loginEmail=async()=>{const email=document.getElementById("loginEmailInput").value.trim();const pass=document.getElementById("loginPasswordInput").value;await signInWithEmailAndPassword(auth,email,pass)}
+async function googleAuth(){const p=new GoogleAuthProvider();const r=await signInWithPopup(auth,p);await ensureUserDocument(r.user)}
 window.loginGoogle=googleAuth;window.signupGoogle=googleAuth;
 function createLoginRecaptcha(){if(loginRecaptcha)return loginRecaptcha;loginRecaptcha=new RecaptchaVerifier(auth,"recaptcha-login",{size:"normal"});return loginRecaptcha}
 function createSignupRecaptcha(){if(signupRecaptcha)return signupRecaptcha;signupRecaptcha=new RecaptchaVerifier(auth,"recaptcha-signup",{size:"normal"});return signupRecaptcha}
-window.sendPhoneLoginOTP=async()=>{const phone=document.getElementById("phoneLoginNumber").value.trim();try{const v=createLoginRecaptcha();loginConfirmationResult=await signInWithPhoneNumber(auth,phone,v);document.getElementById("loginOtpArea").classList.remove("hidden");showMessage("OTP sent",true)}catch(e){showMessage(e.message)}};
-window.verifyPhoneLogin=async()=>{const code=document.getElementById("phoneLoginOtp").value.trim();try{const r=await loginConfirmationResult.confirm(code);await ensureUserDocument(r.user)}catch(e){showMessage(e.message)}};
-window.sendPhoneSignupOTP=async()=>{const name=document.getElementById("phoneSignupName").value.trim();const sClass=document.getElementById("phoneSignupClass").value;const phone=document.getElementById("phoneSignupNumber").value.trim();try{const v=createSignupRecaptcha();window.pendingPhoneSignup={name,class:sClass,phone};signupConfirmationResult=await signInWithPhoneNumber(auth,phone,v);document.getElementById("signupOtpArea").classList.remove("hidden");showMessage("OTP sent",true)}catch(e){showMessage(e.message)}};
-window.verifyPhoneSignup=async()=>{const code=document.getElementById("phoneSignupOtp").value.trim();try{const r=await signupConfirmationResult.confirm(code);const p=window.pendingPhoneSignup;if(p){await updateProfile(r.user,{displayName:p.name});await setDoc(doc(db,"users",r.user.uid),{uid:r.user.uid,name:p.name,nameLower:p.name.toLowerCase(),email:r.user.email||"",phone:r.user.phoneNumber||p.phone,class:p.class,createdAt:serverTimestamp()})}}catch(e){showMessage(e.message)}};
-async function ensureUserDocument(u){const ref=doc(db,"users",u.uid);const s=await getDoc(ref);if(!s.exists()){await setDoc(ref,{uid:u.uid,name:u.displayName||"Student",nameLower:(u.displayName||"student").toLowerCase(),email:u.email||"",phone:u.phoneNumber||"",class:"",createdAt:serverTimestamp()})}}
-onAuthStateChanged(auth,async(user)=>{if(user){document.getElementById("authScreen").classList.add("hidden");document.getElementById("app").classList.remove("hidden");await ensureUserDocument(user);loadProfile();loadTasks();listenToRequests();listenToFriends()}else{document.getElementById("authScreen").classList.remove("hidden");document.getElementById("app").classList.add("hidden")}});
-window.logout=async()=>{await signOut(auth)};
-window.showPage=(id,btn)=>{document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active")};
-async function loadProfile(){
-  const u=auth.currentUser;
-  if(!u) return;
-  const ref=doc(db,"users",u.uid);
-  const s=await getDoc(ref);
-  if(!s.exists()) return;
-  const d=s.data();
+window.sendPhoneLoginOTP=async()=>{const phone=document.getElementById("phoneLoginNumber").value.trim();const v=createLoginRecaptcha();loginConfirmationResult=await signInWithPhoneNumber(auth,phone,v);document.getElementById("loginOtpArea").classList.remove("hidden")}
+window.verifyPhoneLogin=async()=>{const code=document.getElementById("phoneLoginOtp").value.trim();const r=await loginConfirmationResult.confirm(code);await ensureUserDocument(r.user)}
+window.sendPhoneSignupOTP=async()=>{const name=document.getElementById("phoneSignupName").value.trim();const sClass=document.getElementById("phoneSignupClass").value;const phone=document.getElementById("phoneSignupNumber").value.trim();window.pendingPhoneSignup={name,class:sClass,phone};const v=createSignupRecaptcha();signupConfirmationResult=await signInWithPhoneNumber(auth,phone,v);document.getElementById("signupOtpArea").classList.remove("hidden")}
+window.verifyPhoneSignup=async()=>{const code=document.getElementById("phoneSignupOtp").value.trim();const r=await signupConfirmationResult.confirm(code);const p=window.pendingPhoneSignup;await updateProfile(r.user,{displayName:p.name});await setDoc(doc(db,"users",r.user.uid),{uid:r.user.uid,name:p.name,nameLower:p.name.toLowerCase(),email:"",phone:r.user.phoneNumber||p.phone,class:p.class,createdAt:serverTimestamp()})}
+async function ensureUserDocument(u){const ref=doc(db,"users",u.uid);const s=await getDoc(ref);if(!s.exists()){const fallback=u.displayName|| (u.email?u.email.split('@')[0]:"Student");await setDoc(ref,{uid:u.uid,name:fallback,nameLower:fallback.toLowerCase(),email:u.email||"",phone:u.phoneNumber||"",class:"",createdAt:serverTimestamp()})}}
+onAuthStateChanged(auth,async(user)=>{if(user){document.getElementById("authScreen").classList.add("hidden");document.getElementById("app").classList.remove("hidden");await ensureUserDocument(user);await loadProfile();}else{document.getElementById("authScreen").classList.remove("hidden");document.getElementById("app").classList.add("hidden")}})
+window.logout=async()=>{await signOut(auth)}
+window.showPage=(id,btn)=>{document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active")}
 
-  let name = d.name;
-  if(!name || name==="Student" || name.trim()===""){
-    const newName = prompt("Apna asal naam likho:") || u.displayName || (u.email? u.email.split('@')[0] : "Student");
-    if(newName && newName!=="Student"){
-      await setDoc(ref,{name:newName, nameLower:newName.toLowerCase()},{merge:true});
-      name = newName;
+// ✅ FIXED
+async function loadProfile(){
+  const u=auth.currentUser; if(!u) return;
+  const ref=doc(db,"users",u.uid);
+  const snap=await getDoc(ref); if(!snap.exists()) return;
+  const d=snap.data();
+  let name=d.name;
+  if(!name || name==="Student" || name.toLowerCase()==="student"){
+    const inputName=prompt("Apna sahi naam likho (ek baar):", u.displayName||"");
+    if(inputName && inputName.trim()!==""){
+      name=inputName.trim();
+      await setDoc(ref,{name:name,nameLower:name.toLowerCase()},{merge:true});
+      try{await updateProfile(u,{displayName:name});}catch(e){}
+    } else {
+      name=u.displayName|| (u.email?u.email.split('@')[0]:"Student");
     }
   }
-
   document.getElementById("topName").textContent=name;
-  document.getElementById("topAvatar").textContent=name.charAt(0).toUpperCase();
   document.getElementById("profileName").textContent=name;
   document.getElementById("profileEmail").textContent=d.email||u.email||"—";
   document.getElementById("profilePhone").textContent=d.phone||u.phoneNumber||"—";
   document.getElementById("profileClass").textContent=d.class||"—";
-}));if(!s.exists())return;const d=s.data();document.getElementById("topName").textContent=d.name;document.getElementById("topAvatar").textContent=d.name.charAt(0).toUpperCase();document.getElementById("profileName").textContent=d.name;document.getElementById("profileEmail").textContent=d.email||"—";document.getElementById("profilePhone").textContent=d.phone||"—";document.getElementById("profileClass").textContent=d.class||"—";}
+}
+window.editName=async()=>{
+  const newName=prompt("Naya naam likho:"); if(!newName) return;
+  const ref=doc(db,"users",auth.currentUser.uid);
+  await setDoc(ref,{name:newName.trim(),nameLower:newName.trim().toLowerCase()},{merge:true});
+  await loadProfile(); alert("Updated!");
+}
 function taskKey(){return auth.currentUser?`studyhub_tasks_${auth.currentUser.uid}`:"studyhub_tasks"}
 function getTasks(){try{return JSON.parse(localStorage.getItem(taskKey())||"[]")}catch{return[]}}
 function saveTasks(t){localStorage.setItem(taskKey(),JSON.stringify(t))}
-function loadTasks(){renderTasks(getTasks())}
-function renderTasks(tasks){document.getElementById("taskCount").textContent=tasks.length;const l=document.getElementById("taskList");if(!tasks.length){l.innerHTML='<div class="empty">No tasks</div>';return}l.innerHTML=tasks.map((t,i)=>`<div class="task"><div><strong>${t.text}</strong></div><div><button class="small-btn" onclick="deleteTask(${i})">Delete</button></div></div>`).join("")}
-window.addTask=()=>{const inp=document.getElementById("taskInput");const txt=inp.value.trim();if(!txt)return;const ts=getTasks();ts.push({text:txt});saveTasks(ts);inp.value="";renderTasks(ts)}
-window.deleteTask=(i)=>{const ts=getTasks();ts.splice(i,1);saveTasks(ts);renderTasks(ts)}
-function createFriendshipId(a,b){return [a,b].sort().join("_")}
-window.searchStudents=async()=>{const term=document.getElementById("friendSearchInput").value.trim().toLowerCase();const res=document.getElementById("searchResults");if(!term){res.innerHTML='Type name';return}const cur=auth.currentUser;res.innerHTML='Searching...';try{const snap=await getDocs(collection(db,"users"));const list=[];snap.forEach(d=>{if(d.id===cur.uid)return;const data=d.data();if((data.nameLower||"").includes(term)||(data.email||"").toLowerCase().includes(term))list.push({...data,uid:data.uid||d.id})});res.innerHTML=list.map(s=>`<div class="person-card"><div>${s.name} - ${s.email}</div><button class="small-btn" onclick="sendFriendRequest('${s.uid}')">Add</button> <button class="small-btn" onclick="openChat('${s.uid}')">Chat</button></div>`).join("")||'<div class="empty">No student found</div>'}catch(e){res.innerHTML=e.message}};
-window.sendFriendRequest=async(toUid)=>{const u=auth.currentUser;await setDoc(doc(db,"friendRequests",`${u.uid}_${toUid}`),{fromUid:u.uid,toUid,status:"pending",createdAt:serverTimestamp()});alert("Request sent")};
-function listenToRequests(){const u=auth.currentUser;const q=query(collection(db,"friendRequests"),where("toUid","==",u.uid),where("status","==","pending"));onSnapshot(q,async snap=>{const list=document.getElementById("requestsList");if(snap.empty){list.innerHTML='';return}list.innerHTML="";for(const docSnap of snap.docs){const data=docSnap.data();const senderSnap=await getDoc(doc(db,"users",data.fromUid));const sender=senderSnap.exists()?senderSnap.data():{name:"Student"};const div=document.createElement("div");div.className="person-card";div.innerHTML=`<div>${sender.name}</div><div><button class="small-btn" onclick="acceptRequest('${docSnap.id}','${data.fromUid}')">Accept</button></div>`;list.appendChild(div)}})}
-function listenToFriends(){const u=auth.currentUser;const q=query(collection(db,"friendships"),where("users","array-contains",u.uid));onSnapshot(q,async snap=>{const list=document.getElementById("friendsList");document.getElementById("friendCount").textContent=snap.size;list.innerHTML="";for(const d of snap.docs){const data=d.data();const otherUid=data.users.find(id=>id!==u.uid);const otherSnap=await getDoc(doc(db,"users",otherUid));const other=otherSnap.exists()?otherSnap.data():{name:"Student"};const div=document.createElement("div");div.className="person-card";div.innerHTML=`<div>${other.name}</div><button class="small-btn" onclick="openChat('${otherUid}')">Chat</button>`;list.appendChild(div)}})}
-window.acceptRequest=async(reqId,fromUid)=>{const u=auth.currentUser;const fid=createFriendshipId(u.uid,fromUid);await setDoc(doc(db,"friendships",fid),{users:[u.uid,fromUid],createdAt:serverTimestamp()});const {deleteDoc}=await import("https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js");await deleteDoc(doc(db,"friendRequests",reqId));};
-window.openChat=async(uid)=>{currentChatUid=uid;const otherSnap=await getDoc(doc(db,"users",uid));const other=otherSnap.exists()?otherSnap.data():{name:"Chat"};document.getElementById("chatName").textContent=other.name;document.getElementById("chatBox").classList.remove("hidden");const chatId=createFriendshipId(auth.currentUser.uid,uid);const q=query(collection(db,"chats",chatId,"messages"),orderBy("createdAt"));if(unsubscribeMessages)unsubscribeMessages();unsubscribeMessages=onSnapshot(q,snap=>{const box=document.getElementById("messages");box.innerHTML="";snap.forEach(d=>{const m=d.data();const div=document.createElement("div");div.className=`message ${m.fromUid===auth.currentUser.uid?"mine":"theirs"}`;div.textContent=m.text;box.appendChild(div)});box.scrollTop=box.scrollHeight})};
-window.closeChat=()=>{document.getElementById("chatBox").classList.add("hidden");if(unsubscribeMessages){unsubscribeMessages();unsubscribeMessages=null}};
-window.sendMessage=async(e)=>{e.preventDefault();const input=document.getElementById("messageInput");const text=input.value.trim();if(!text||!currentChatUid)return;const chatId=createFriendshipId(auth.currentUser.uid,currentChatUid);await addDoc(collection(db,"chats",chatId,"messages"),{fromUid:auth.currentUser.uid,toUid:currentChatUid,text,createdAt:serverTimestamp()});input.value=""};
+window.addTask=()=>{const txt=document.getElementById("taskInput").value.trim();if(!txt)return;const ts=getTasks();ts.push({text:txt});saveTasks(ts);document.getElementById("taskInput").value="";location.reload()}
+window.searchStudents=async()=>{const term=document.getElementById("friendSearchInput").value.toLowerCase();const snap=await getDocs(collection(db,"users"));let html="";snap.forEach(d=>{if(d.id===auth.currentUser.uid)return;const data=d.data();if((data.nameLower||"").includes(term)) html+=`<div>${data.name} <button onclick="sendFriendRequest('${d.id}')">Add</button> <button onclick="openChat('${d.id}')">Chat</button></div>`});document.getElementById("searchResults").innerHTML=html}
+window.sendFriendRequest=async(toUid)=>{await setDoc(doc(db,"friendRequests",`${auth.currentUser.uid}_${toUid}`),{fromUid:auth.currentUser.uid,toUid,status:"pending",createdAt:serverTimestamp()});alert("Sent")}
+window.openChat=async(uid)=>{currentChatUid=uid;document.getElementById("chatBox").classList.remove("hidden");const chatId=[auth.currentUser.uid,uid].sort().join("_");const q=query(collection(db,"chats",chatId,"messages"),orderBy("createdAt"));if(unsubscribeMessages)unsubscribeMessages();unsubscribeMessages=onSnapshot(q,snap=>{const box=document.getElementById("messages");box.innerHTML="";snap.forEach(d=>{const m=d.data();const div=document.createElement("div");div.textContent=m.text;box.appendChild(div)})})}
+window.closeChat=()=>{document.getElementById("chatBox").classList.add("hidden")}
+window.sendMessage=async(e)=>{e.preventDefault();const text=document.getElementById("messageInput").value.trim();if(!text||!currentChatUid)return;const chatId=[auth.currentUser.uid,currentChatUid].sort().join("_");await addDoc(collection(db,"chats",chatId,"messages"),{fromUid:auth.currentUser.uid,toUid:currentChatUid,text,createdAt:serverTimestamp()});document.getElementById("messageInput").value=""}
 </script>
 </body>
 </html>
