@@ -114,7 +114,30 @@ async function ensureUserDocument(u){const ref=doc(db,"users",u.uid);const s=awa
 onAuthStateChanged(auth,async(user)=>{if(user){document.getElementById("authScreen").classList.add("hidden");document.getElementById("app").classList.remove("hidden");await ensureUserDocument(user);loadProfile();loadTasks();listenToRequests();listenToFriends()}else{document.getElementById("authScreen").classList.remove("hidden");document.getElementById("app").classList.add("hidden")}});
 window.logout=async()=>{await signOut(auth)};
 window.showPage=(id,btn)=>{document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active")};
-async function loadProfile(){const u=auth.currentUser;if(!u)return;const s=await getDoc(doc(db,"users",u.uid));if(!s.exists())return;const d=s.data();document.getElementById("topName").textContent=d.name;document.getElementById("topAvatar").textContent=d.name.charAt(0).toUpperCase();document.getElementById("profileName").textContent=d.name;document.getElementById("profileEmail").textContent=d.email||"—";document.getElementById("profilePhone").textContent=d.phone||"—";document.getElementById("profileClass").textContent=d.class||"—";}
+async function loadProfile(){
+  const u=auth.currentUser;
+  if(!u) return;
+  const ref=doc(db,"users",u.uid);
+  const s=await getDoc(ref);
+  if(!s.exists()) return;
+  const d=s.data();
+
+  let name = d.name;
+  if(!name || name==="Student" || name.trim()===""){
+    const newName = prompt("Apna asal naam likho:") || u.displayName || (u.email? u.email.split('@')[0] : "Student");
+    if(newName && newName!=="Student"){
+      await setDoc(ref,{name:newName, nameLower:newName.toLowerCase()},{merge:true});
+      name = newName;
+    }
+  }
+
+  document.getElementById("topName").textContent=name;
+  document.getElementById("topAvatar").textContent=name.charAt(0).toUpperCase();
+  document.getElementById("profileName").textContent=name;
+  document.getElementById("profileEmail").textContent=d.email||u.email||"—";
+  document.getElementById("profilePhone").textContent=d.phone||u.phoneNumber||"—";
+  document.getElementById("profileClass").textContent=d.class||"—";
+}));if(!s.exists())return;const d=s.data();document.getElementById("topName").textContent=d.name;document.getElementById("topAvatar").textContent=d.name.charAt(0).toUpperCase();document.getElementById("profileName").textContent=d.name;document.getElementById("profileEmail").textContent=d.email||"—";document.getElementById("profilePhone").textContent=d.phone||"—";document.getElementById("profileClass").textContent=d.class||"—";}
 function taskKey(){return auth.currentUser?`studyhub_tasks_${auth.currentUser.uid}`:"studyhub_tasks"}
 function getTasks(){try{return JSON.parse(localStorage.getItem(taskKey())||"[]")}catch{return[]}}
 function saveTasks(t){localStorage.setItem(taskKey(),JSON.stringify(t))}
