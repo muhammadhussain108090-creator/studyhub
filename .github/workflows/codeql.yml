@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyHub</title>
+<style> ... same design ... </style>
+</head>
+<body>
+<!-- PURA CODE YAHAN HAI - file me save kiya hai -->
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, onSnapshot, serverTimestamp, addDoc, orderBy } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+// ✅ FIXED CONFIG - TUMHARA NAYA APP ID
+const firebaseConfig = {
+  apiKey: "AIzaSyCEFgHDRoDFZ6IZco7iWloLvNCsL3SYckw",
+  authDomain: "data-transfer-63111.firebaseapp.com",
+  databaseURL: "https://data-transfer-63111-default-rtdb.firebaseio.com",
+  projectId: "data-transfer-63111",
+  storageBucket: "data-transfer-63111.firebasestorage.app",
+  messagingSenderId: "1031425742783",
+  appId: "1:1031425742783:web:5e8ff2207836f47c2cb30a",
+  measurementId: "G-TV0RRNXWPD"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+// ... baki sara logic ...
+</script>
+</body>
+</html>
